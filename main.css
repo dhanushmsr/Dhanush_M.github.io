@@ -368,3 +368,23 @@ body {
   /* 3 cards on desktop */
   .project__content { flex: 0 0 calc(33.333% - 55px); }
 }
+@media screen and (max-width: 768px) {
+    /* Reduce side padding so cards have more room */
+    .slider-container {
+        padding: 0 15px !important; 
+    }
+
+    /* THE FIX: Make cards 80% of the screen width */
+    /* This makes the 3rd project 'peek' into view */
+    .project__content {
+        flex: 0 0 80vw !important; 
+        min-width: 280px;
+        padding: 1.5rem !important; /* Smaller padding for small screens */
+    }
+
+    /* Ensure the slider allows swiping even if buttons are hidden */
+    .project-slider {
+        gap: 15px !important;
+        -webkit-overflow-scrolling: touch; /* Extra smooth swiping for iPhones */
+    }
+}
