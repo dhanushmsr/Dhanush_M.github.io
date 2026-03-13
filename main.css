@@ -213,15 +213,13 @@ body {
 
 /* ── Project Slider ── */
 /* ── Project Slider ──
-   Strategy: container uses padding to make room for the arrow buttons.
-   Buttons sit at the edges of the container, never on top of cards.
-   Cards use fixed px widths — reliable at all screen sizes.
+   Container padding reserves space for arrow buttons.
+   Cards use calc(100% - gap) so they always fit the visible area.
 */
 .slider-container {
   position: relative;
   margin-top: 2rem;
-  /* left/right padding = button width (44px) + 4px gap */
-  padding: 0 48px;
+  padding: 0 48px; /* space for 40px buttons + 8px breathing room */
 }
 
 .project-slider {
@@ -230,14 +228,17 @@ body {
   gap: 16px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 16px 4px 24px;
+  padding: 16px 0 24px;
   scrollbar-width: none;
 }
 .project-slider::-webkit-scrollbar { display: none; }
 
+/* Mobile-first: 1 card fills the full visible slider width */
 .project__content {
-  flex: 0 0 260px;
-  width: 260px;
+  /* --card-w is set by JS on load + resize, so it always = visible slot width */
+  flex: 0 0 var(--card-w, 280px);
+  width: var(--card-w, 280px);
+  min-width: 0;
   background: var(--color-bg-secondary);
   padding: 1.8rem;
   border-radius: 12px;
@@ -340,7 +341,6 @@ body {
   html { font-size: 52%; }
   .slider-container { padding: 0 36px; }
   .slider-btn { width: 30px; height: 30px; font-size: 1.2rem; }
-  .project__content { flex: 0 0 220px; width: 220px; }
   .section__header { margin: 5rem 0; }
   .skills__wrapper { grid-template-columns: 1fr; }
   .btn { padding: 1.2rem 2.5rem; font-size: var(--fs-sm); }
@@ -351,13 +351,11 @@ body {
   html { font-size: 55%; }
   .slider-container { padding: 0 42px; }
   .slider-btn { width: 34px; height: 34px; }
-  .project__content { flex: 0 0 250px; width: 250px; }
   .skills__wrapper { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ── Large mobile / small tablet (601–768px) ── */
 @media screen and (min-width: 601px) and (max-width: 768px) {
-  .project__content { flex: 0 0 270px; width: 270px; }
   .skills__wrapper { grid-template-columns: repeat(2, 1fr); }
   .service__wrapper { grid-template-columns: repeat(2, 250px); justify-content: center; }
   .qualification__content { grid-template-columns: repeat(2, 1fr); }
@@ -370,7 +368,6 @@ body {
   .hero__content { text-align: initial; }
   .hero__title::after { transform: none; left: 0; }
   .hero__img { justify-self: flex-end; max-width: 380px; }
-  .project__content { flex: 0 0 280px; width: 280px; }
   .skills__wrapper { grid-template-columns: repeat(2, 1fr); }
   .service__wrapper { grid-template-columns: repeat(2, 250px); justify-content: center; }
   .qualification__content { grid-template-columns: repeat(2, 1fr); }
@@ -389,7 +386,6 @@ body {
   .skills__wrapper { grid-template-columns: repeat(4, 1fr); }
   .qualification__content { grid-template-columns: repeat(2, 1fr); }
   .service__wrapper { grid-template-columns: repeat(3, 1fr); }
-  .project__content { flex: 0 0 295px; width: 295px; }
   .contact__wrapper { display: flex; justify-content: space-between; align-items: center; }
   .contact__content { margin: 0; text-align: initial; }
   .footer__wrapper { grid-template-columns: repeat(3, 1fr); }
@@ -397,5 +393,4 @@ body {
 
 /* ── Large desktop (1200px+) ── */
 @media screen and (min-width: 1200px) {
-  .project__content { flex: 0 0 320px; width: 320px; }
 }

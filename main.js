@@ -35,10 +35,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const rightBtn = document.querySelector(".slider-btn.right");
   const dots     = document.querySelectorAll(".dot");
 
+  // How many cards should be visible at once per breakpoint
+  function cardsInView() {
+    const w = window.innerWidth;
+    if (w >= 969) return 3;
+    if (w >= 769) return 2;
+    return 1;
+  }
+
+  // Set --card-w CSS variable so cards always fill the visible slot exactly
+  function setCardWidth() {
+    const containerW = slider.parentElement.clientWidth; // .slider-container width
+    const gap        = parseFloat(getComputedStyle(slider).gap) || 16;
+    const n          = cardsInView();
+    const cardW      = Math.floor((containerW - gap * (n - 1)) / n);
+    slider.parentElement.style.setProperty('--card-w', cardW + 'px');
+  }
+
   function getCardWidth() {
     const card = slider && slider.querySelector(".project__content");
     if (!card) return 280;
-    // getBoundingClientRect is accurate after resize; offsetWidth is not
     const gap = parseFloat(getComputedStyle(slider).gap) || 16;
     return card.getBoundingClientRect().width + gap;
   }
@@ -74,6 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function resetAuto() {
     clearInterval(autoTimer);
+    setCardWidth();
+    window.addEventListener('resize', () => {
+      setCardWidth();
+      updateDots();
+    });
+
     startAuto();
   }
 
