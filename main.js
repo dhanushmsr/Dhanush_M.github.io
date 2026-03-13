@@ -1,32 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ── Nav toggle ──────────────────────────────────────────────
+  // ── Nav toggle ───────────────────────────────────────────────
   const navMenu   = document.getElementById("nav-menu");
   const navToggle = document.getElementById("nav-toggle");
-  const navItems  = document.querySelectorAll(".nav__item");
   const header    = document.getElementById("header");
 
-  function closeMenu() {
-    navMenu.classList.remove("nav__menu--open");
-    navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
-  }
-
-  if (navToggle) {
+  if (navToggle && navMenu) {
     navToggle.addEventListener("click", () => {
       const isOpen = navMenu.classList.toggle("nav__menu--open");
       navToggle.classList.replace(
         isOpen ? "ri-menu-3-line" : "ri-close-line",
-        isOpen ? "ri-close-line" : "ri-menu-3-line"
+        isOpen ? "ri-close-line"  : "ri-menu-3-line"
       );
+    });
+
+    document.querySelectorAll(".nav__item").forEach(item => {
+      item.addEventListener("click", () => {
+        navMenu.classList.remove("nav__menu--open");
+        navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
+      });
     });
   }
 
-  navItems.forEach(item => item.addEventListener("click", closeMenu));
-
   // ── Header scroll shadow ─────────────────────────────────────
-  window.addEventListener("scroll", () => {
-    header.classList.toggle("header--scroll", window.scrollY > 40);
-  });
+  if (header) {
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("header--scroll", window.scrollY > 40);
+    });
+  }
 
   // ── Project slider ───────────────────────────────────────────
   const slider   = document.querySelector(".project-slider");
@@ -36,42 +37,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getCardWidth() {
     const card = slider && slider.querySelector(".project__content");
-    if (!card) return 345;
-    const gap = parseFloat(getComputedStyle(slider).gap) || 25;
-    return card.offsetWidth + gap;
+    if (!card) return 280;
+    // getBoundingClientRect is accurate after resize; offsetWidth is not
+    const gap = parseFloat(getComputedStyle(slider).gap) || 16;
+    return card.getBoundingClientRect().width + gap;
   }
 
-  // Pure JS smooth scroll — no dependency on CSS scroll-behavior
   function smoothScrollTo(targetLeft, duration) {
-    const start     = slider.scrollLeft;
-    const distance  = targetLeft - start;
-    const startTime = performance.now();
+    const start    = slider.scrollLeft;
+    const distance = targetLeft - start;
+    const t0       = performance.now();
 
     function step(now) {
-      const elapsed  = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // ease-in-out
-      const ease = progress < 0.5
-        ? 2 * progress * progress
-        : -1 + (4 - 2 * progress) * progress;
+      const p    = Math.min((now - t0) / duration, 1);
+      const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
       slider.scrollLeft = start + distance * ease;
-      if (progress < 1) requestAnimationFrame(step);
+      if (p < 1) requestAnimationFrame(step);
       else updateDots();
     }
     requestAnimationFrame(step);
   }
 
   function updateDots() {
-    const index = Math.round(slider.scrollLeft / getCardWidth());
-    dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+    const idx = Math.round(slider.scrollLeft / getCardWidth());
+    dots.forEach((d, i) => d.classList.toggle("active", i === idx));
   }
 
-  // Auto-scroll every 4s
   let autoTimer;
 
   function startAuto() {
     autoTimer = setInterval(() => {
-      const atEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 10;
+      const atEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 5;
       smoothScrollTo(atEnd ? 0 : slider.scrollLeft + getCardWidth(), 500);
     }, 4000);
   }
@@ -82,34 +78,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (slider && leftBtn && rightBtn) {
-    rightBtn.addEventListener("click", () => {
-      smoothScrollTo(slider.scrollLeft + getCardWidth(), 400);
-      resetAuto();
-    });
+    rightBtn.addEventListener("click", () => { smoothScrollTo(slider.scrollLeft + getCardWidth(), 400); resetAuto(); });
+    leftBtn.addEventListener("click",  () => { smoothScrollTo(slider.scrollLeft - getCardWidth(), 400); resetAuto(); });
 
-    leftBtn.addEventListener("click", () => {
-      smoothScrollTo(slider.scrollLeft - getCardWidth(), 400);
-      resetAuto();
-    });
+    dots.forEach((d, i) => d.addEventListener("click", () => { smoothScrollTo(getCardWidth() * i, 400); resetAuto(); }));
 
-    dots.forEach((dot, i) => {
-      dot.addEventListener("click", () => {
-        smoothScrollTo(getCardWidth() * i, 400);
-        resetAuto();
-      });
-    });
-
-    slider.addEventListener("mousedown", () => clearInterval(autoTimer));
-    slider.addEventListener("touchstart", () => clearInterval(autoTimer));
+    slider.addEventListener("mousedown",  () => clearInterval(autoTimer));
+    slider.addEventListener("touchstart", () => clearInterval(autoTimer), { passive: true });
     slider.addEventListener("mouseup",    resetAuto);
     slider.addEventListener("touchend",   resetAuto);
-
-    slider.addEventListener("scroll", updateDots);
+    slider.addEventListener("scroll",     updateDots);
 
     startAuto();
   }
 
-  // ── ScrollReveal (no project cards — they're inside overflow container) ──
+  // ── ScrollReveal ─────────────────────────────────────────────
+  // .project__content intentionally excluded — SR hides cards inside overflow sliders
   if (typeof ScrollReveal !== "undefined") {
     const sr = ScrollReveal({
       origin: "top",
@@ -127,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
     sr.reveal(".service__card",          { interval: 100 });
     sr.reveal(".contact__content",       { origin: "bottom" });
     sr.reveal(".contact__btn",           { origin: "right" });
-    // NOTE: .project__content is intentionally excluded — SR breaks overflow sliders
   }
 
 });
