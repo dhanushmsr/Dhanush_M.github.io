@@ -307,6 +307,56 @@
     <!-- Scripts: libraries first, then main.js — NO inline script blocks -->
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="asset/js/main.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.querySelector(".project-slider");
+    const rightBtn = document.querySelector(".slider-btn.right");
+    const leftBtn = document.querySelector(".slider-btn.left");
+    
+    // Safety check: if these aren't found, the script stops here
+    if (!slider || !rightBtn || !leftBtn) return;
+
+    const getScrollStep = () => {
+        const card = document.querySelector(".project__content");
+        // Card width (260px or 320px) + gap (16px or 25px)
+        return card ? card.offsetWidth + 16 : 300;
+    };
+
+    // --- 1. Arrow Logic ---
+    rightBtn.onclick = () => {
+        slider.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+        resetAutoTimer();
+    };
+
+    leftBtn.onclick = () => {
+        slider.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+        resetAutoTimer();
+    };
+
+    // --- 2. Auto-Scroll Logic ---
+    let autoTimer = setInterval(moveAuto, 5000);
+
+    function moveAuto() {
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+        
+        // If we are at the end (within 10px), go back to start
+        if (slider.scrollLeft >= maxScroll - 10) {
+            slider.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            slider.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+        }
+    }
+
+    function resetAutoTimer() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(moveAuto, 5000);
+    }
+
+    // Pause on hover
+    slider.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    slider.addEventListener('mouseleave', () => resetAutoTimer());
+});
+</script>
 
 </body>
 </html>
