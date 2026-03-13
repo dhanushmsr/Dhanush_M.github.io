@@ -411,3 +411,19 @@ body {
         margin-right: 5px;
     }
 }
+/* Ensure your global font rule doesn't override icons */
+* {
+    font-family: var(--ff-body); /* This is fine */
+}
+
+/* BUT, make sure Boxicons can still use its own font */
+.bx {
+    font-family: 'boxicons' !important;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    display: inline-block;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+}
