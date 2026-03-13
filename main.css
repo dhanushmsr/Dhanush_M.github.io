@@ -388,3 +388,26 @@ body {
         -webkit-overflow-scrolling: touch; /* Extra smooth swiping for iPhones */
     }
 }
+@media screen and (max-width: 768px) {
+    /* Ensure the parent doesn't clip the slider */
+    .slider-container {
+        padding: 0 10px !important;
+        overflow: visible !important;
+    }
+
+    .project-slider {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 15px !important;
+        overflow-x: auto !important; /* Forces scroll/swipe ability */
+        padding: 20px 10px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .project__content {
+        /* 85vw lets the user see 85% of one card and 15% of the next */
+        flex: 0 0 85vw !important; 
+        min-width: 280px;
+        margin-right: 5px;
+    }
+}
