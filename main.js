@@ -1,97 +1,133 @@
-const navMenu = document.getElementById("nav-menu"),
-  navToggle = document.getElementById("nav-toggle"),
-  navItem = document.querySelectorAll(".nav__item"),
-  header = document.getElementById("header");
+document.addEventListener("DOMContentLoaded", () => {
 
-// open and close menu
-navToggle.addEventListener("click", () => {
-  navMenu.classList.toggle("nav__menu--open");
-  changeIcon();
-});
+  // ── Nav toggle ──────────────────────────────────────────────
+  const navMenu   = document.getElementById("nav-menu");
+  const navToggle = document.getElementById("nav-toggle");
+  const navItems  = document.querySelectorAll(".nav__item");
+  const header    = document.getElementById("header");
 
-// close the menu when the user clicks the nav links
-navItem.forEach((item) => {
-  item.addEventListener("click", () => {
-    if (navMenu.classList.contains("nav__menu--open")) {
-      navMenu.classList.remove("nav__menu--open");
-    }
-    changeIcon();
-  });
-});
-
-// Change nav toggle icon
-function changeIcon() {
-  if (navMenu.classList.contains("nav__menu--open")) {
-    navToggle.classList.replace("ri-menu-3-line", "ri-close-line");
-  } else {
+  function closeMenu() {
+    navMenu.classList.remove("nav__menu--open");
     navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
   }
-}
 
-// Downloading Resume
-// document.getElementsByClassName("btn btn--primary").addEventListener("click", function() {
-//   window.location.href = "../../assets/Calvin Mwangi.pdf"
-// })
-
-
-// Testimonial Slide
-
-const testimonialSlide = new Swiper(".testimonial__wrapper", {
-  loop: true,
-  spaceBetween: 30,
-  centeredSlides: true,
-  effect: "coverflow",
-  grabCursor: true,
-  slidesPerView: 1,
-  coverflowEffect: {
-    rotate: 50,
-    stretch: 0,
-    depth: 100,
-    modifier: 1,
-    slideShadows: true,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-
-  breakpoints: {
-    520: {
-      slidesPerView: "auto",
-    },
-  },
-});
-
-// header scroll animation
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 40) {
-    header.classList.add("header--scroll");
-  } else {
-    header.classList.remove("header--scroll");
+  if (navToggle) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = navMenu.classList.toggle("nav__menu--open");
+      navToggle.classList.replace(
+        isOpen ? "ri-menu-3-line" : "ri-close-line",
+        isOpen ? "ri-close-line" : "ri-menu-3-line"
+      );
+    });
   }
-});
 
-// ScrollReveal animations
-const sr = ScrollReveal({
-  duration: 2000,
-  distance: "100px",
-  delay: 400,
-  reset: false,
-});
+  navItems.forEach(item => item.addEventListener("click", closeMenu));
 
-sr.reveal(".hero__content, .about__content");
-sr.reveal(".hero__img", { origin: "top" });
+  // ── Header scroll shadow ─────────────────────────────────────
+  window.addEventListener("scroll", () => {
+    header.classList.toggle("header--scroll", window.scrollY > 40);
+  });
 
-sr.reveal(
-  ".hero__info-wrapper, .skills__title, .skills__content, .qualification__name, .qualification__item, .service__card, .project__content, .testimonial__wrapper, .footer__content",
-  {
-    delay: 500,
-    interval: 100,
+  // ── Project slider ───────────────────────────────────────────
+  const slider   = document.querySelector(".project-slider");
+  const leftBtn  = document.querySelector(".slider-btn.left");
+  const rightBtn = document.querySelector(".slider-btn.right");
+  const dots     = document.querySelectorAll(".dot");
+
+  function getCardWidth() {
+    const card = slider && slider.querySelector(".project__content");
+    if (!card) return 345;
+    const gap = parseFloat(getComputedStyle(slider).gap) || 25;
+    return card.offsetWidth + gap;
   }
-);
 
-sr.reveal(".qualification__footer-text, .contact__content", {
-  origin: "left",
+  // Pure JS smooth scroll — no dependency on CSS scroll-behavior
+  function smoothScrollTo(targetLeft, duration) {
+    const start     = slider.scrollLeft;
+    const distance  = targetLeft - start;
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed  = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-in-out
+      const ease = progress < 0.5
+        ? 2 * progress * progress
+        : -1 + (4 - 2 * progress) * progress;
+      slider.scrollLeft = start + distance * ease;
+      if (progress < 1) requestAnimationFrame(step);
+      else updateDots();
+    }
+    requestAnimationFrame(step);
+  }
+
+  function updateDots() {
+    const index = Math.round(slider.scrollLeft / getCardWidth());
+    dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+  }
+
+  // Auto-scroll every 4s
+  let autoTimer;
+
+  function startAuto() {
+    autoTimer = setInterval(() => {
+      const atEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 10;
+      smoothScrollTo(atEnd ? 0 : slider.scrollLeft + getCardWidth(), 500);
+    }, 4000);
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    startAuto();
+  }
+
+  if (slider && leftBtn && rightBtn) {
+    rightBtn.addEventListener("click", () => {
+      smoothScrollTo(slider.scrollLeft + getCardWidth(), 400);
+      resetAuto();
+    });
+
+    leftBtn.addEventListener("click", () => {
+      smoothScrollTo(slider.scrollLeft - getCardWidth(), 400);
+      resetAuto();
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        smoothScrollTo(getCardWidth() * i, 400);
+        resetAuto();
+      });
+    });
+
+    slider.addEventListener("mousedown", () => clearInterval(autoTimer));
+    slider.addEventListener("touchstart", () => clearInterval(autoTimer));
+    slider.addEventListener("mouseup",    resetAuto);
+    slider.addEventListener("touchend",   resetAuto);
+
+    slider.addEventListener("scroll", updateDots);
+
+    startAuto();
+  }
+
+  // ── ScrollReveal (no project cards — they're inside overflow container) ──
+  if (typeof ScrollReveal !== "undefined") {
+    const sr = ScrollReveal({
+      origin: "top",
+      distance: "60px",
+      duration: 2000,
+      delay: 300,
+      reset: false,
+    });
+
+    sr.reveal(".hero__content, .section__header");
+    sr.reveal(".hero__img",              { origin: "bottom", delay: 600 });
+    sr.reveal(".about__content",         { origin: "left" });
+    sr.reveal(".qualification__wrapper", { origin: "left", interval: 100 });
+    sr.reveal(".skills__content",        { interval: 100 });
+    sr.reveal(".service__card",          { interval: 100 });
+    sr.reveal(".contact__content",       { origin: "bottom" });
+    sr.reveal(".contact__btn",           { origin: "right" });
+    // NOTE: .project__content is intentionally excluded — SR breaks overflow sliders
+  }
+
 });
-
-sr.reveal(".qualification__footer .btn, .contact__btn", { origin: "right" });
