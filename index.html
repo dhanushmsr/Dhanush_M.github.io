@@ -6,41 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dhanush</title>
+    <title>Dhanush M | Portfolio</title>
     <link rel="icon" href="asset/logo.png">
 
-    <!-- SEO / Social -->
     <meta property="og:title" content="Dhanush M | Software Developer Portfolio">
-    <meta property="og:description" content="Motivated Software Developer. Check out my recent projects.">
+    <meta property="og:description" content="Python Full Stack Developer based in Bengaluru. Check out my recent projects.">
     <meta property="og:image" content="asset/preview.png">
     <meta property="og:url" content="https://dhanushmsr.github.io/Dhanush_M/">
 
-    <!-- Fonts & Icons — loaded ONCE each -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-    <!-- Main stylesheet — loaded ONCE -->
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Header -->
     <header id="header" class="header">
         <div class="container">
             <nav class="nav">
                 <a href="index.html" class="nav__brand">
-                    <i class="ri-pen-nib-fill"></i> Dhanush<span>M</span>
+                    <i class="ri-terminal-box-fill"></i> Dhanush<span>M</span>
                 </a>
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item"><a href="#hero" class="nav__link">Home</a></li>
                         <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="#qualification" class="nav__link">Qualification</a></li>
-                        <li class="nav__item"><a href="#service" class="nav__link">Services</a></li>
+                        <li class="nav__item"><a href="#qualification" class="nav__link">Experience</a></li>
                         <li class="nav__item"><a href="#project" class="nav__link">Projects</a></li>
                         <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
                     </ul>
@@ -54,79 +49,83 @@
 
     <main class="main">
 
-        <!-- Hero -->
         <section id="hero" class="hero">
             <div class="container">
                 <div class="d-grid hero__wrapper">
                     <div class="hero__content">
-                        <h1 class="hero__title">Hi, I am Dhanush,<br>Software Developer.</h1>
-                        <p class="hero__description" style="text-align:justify;">I am a motivated and versatile individual, always eager to take on new challenges. With a passion for learning I am dedicated to delivering high-quality results. With a positive attitude and a growth mindset, I am ready to make a meaningful contribution and achieve great things.</p>
+                        <h1 class="hero__title">Hi, I am Dhanush,<br>Python Full Stack Developer.</h1>
+                        <p class="hero__description" style="text-align:justify;">
+                            Based in Bengaluru, I engineer secure, scalable web applications from the database to the user interface. Specializing in Python frameworks and modern JavaScript libraries, I focus on building efficient solutions that solve real-world problems.
+                        </p>
+                        <div class="hero__actions" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                            <a href="#project" class="btn btn--primary">View Projects</a>
+                            <a href="asset/Dhanush_Resume.pdf" target="_blank" class="btn btn--secondary">Download Resume</a>
+                        </div>
                     </div>
                     <img src="asset/dhanush.jpg" alt="Dhanush M" class="hero__img">
                 </div>
             </div>
         </section>
 
-        <!-- About -->
         <section id="about" class="section about">
             <div class="container">
                 <div class="section__header">
                     <h2 class="section__title">About Me</h2>
-                    <span class="section__subtitle">Who am I</span>
+                    <span class="section__subtitle">My technical identity</span>
                 </div>
-                <center>
-                <div class="about__content">
-                    <h3 class="about__title">I'm a Professional and Skilled Software Developer.</h3>
-                    <p class="about__description" style="text-align:justify;">I have a strong focus on creating intuitive and efficient software solutions to meet the needs of clients and end-users.
-                        When I'm not coding, I love to stay up-to-date with the latest technology trends and improving my skills.
-                        I'm always eager to take on new challenges and work with a team to deliver exceptional results.
+                
+                <div class="about__content" style="max-width: 800px; margin: 0 auto 5rem; text-align: center;">
+                    <h3 class="about__title">Bridging Backend Architecture with Seamless Frontends.</h3>
+                    <p class="about__description" style="text-align:justify;">
+                        I am a 2026 B.E. Computer Science and Engineering graduate with a strong foundation in secure system design and full-stack development. My technical journey has taken me from architecting APIs with Node.js and Django to building responsive interfaces with React. Beyond writing clean, maintainable code, I have a keen interest in cybersecurity protocols like AES-256 encryption. When I step away from the keyboard, I apply strategic thinking as a chess player and coach, training the next generation of players.
                     </p>
-                    <center><a href="#project" class="btn btn--primary">Know More</a></center>
                 </div>
-                </center>
+                
                 <div class="skills">
-                    <h3 class="skills__title">Technologies I've been skilled with:</h3>
+                    <h3 class="skills__title" style="text-align: center; margin-bottom: 3rem;">Core Technologies</h3>
                     <div class="skills__wrapper">
                         <div class="skills__content">
                             <h4 class="skills__subtitle">Programming Languages</h4>
                             <ul class="skills__list">
                                 <li class="skills__item"><i class="bx bxl-python"></i> Python</li>
+                                <li class="skills__item"><i class="bx bxl-javascript"></i> JavaScript</li>
                                 <li class="skills__item"><i class="bx bxl-c-plus-plus"></i> C/C++</li>
                             </ul>
                         </div>
                         <div class="skills__content">
                             <h4 class="skills__subtitle">Frameworks & Libraries</h4>
                             <ul class="skills__list">
-                                <li class="skills__item"><i class="bx bxl-nodejs"></i> NodeJs</li>
-                                <li class="skills__item"><i class="bx bxl-react"></i> ReactJs</li>
+                                <li class="skills__item"><i class="bx bxl-react"></i> React.js</li>
+                                <li class="skills__item"><i class="bx bxl-nodejs"></i> Node.js & Express</li>
+                                <li class="skills__item"><i class="bx bxl-django"></i> Django & Flask</li>
                             </ul>
                         </div>
                         <div class="skills__content">
                             <h4 class="skills__subtitle">Databases</h4>
                             <ul class="skills__list">
                                 <li class="skills__item"><i class="bx bx-data"></i> MongoDB</li>
-                                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i> MySQL</li>
+                                <li class="skills__item"><i class="bx bx-data"></i> Oracle / SQL</li>
+                                <li class="skills__item"><i class="bx bx-data"></i> MySQL</li>
                             </ul>
                         </div>
                         <div class="skills__content">
-                            <h4 class="skills__subtitle">Technologies & Tools</h4>
+                            <h4 class="skills__subtitle">Tools & Cloud</h4>
                             <ul class="skills__list">
-                                <li class="skills__item"><i class="bx bxl-github"></i> Git/Github</li>
-                                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i> Cloud (AWS)</li>
+                                <li class="skills__item"><i class="bx bxl-aws"></i> AWS (EC2)</li>
+                                <li class="skills__item"><i class="bx bxl-git"></i> Git & GitHub</li>
+                                <li class="skills__item"><i class="bx bx-lock-alt"></i> Cybersecurity / Encryption</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- Qualification -->
         <section id="qualification" class="section qualification">
             <div class="container">
                 <div class="section__header">
-                    <h2 class="section__title">Qualification</h2>
-                    <span class="section__subtitle">Experience & Education</span>
+                    <h2 class="section__title">Experience & Education</h2>
+                    <span class="section__subtitle">My professional journey</span>
                 </div>
 
                 <div class="qualification__wrapper">
@@ -134,27 +133,27 @@
                         <i class="ri-briefcase-fill"></i> Professional Experience
                     </h3>
                     <div class="d-grid qualification__content">
+                        
                         <div class="qualification__item">
-                            <h3 class="qualification__title">Full Stack Developer</h3>
+                            <h3 class="qualification__title">Full Stack Web Development Intern — <i>Octanet Service Pvt. Ltd.</i></h3>
                             <p class="qualification__description" style="text-align:justify;">
-                                • Collaborated with team members to brainstorm ideas and contribute to the overall success of the development.<br>
-                                • Implemented user interfaces using ReactJS, writing clean, modular, and maintainable code for responsive web applications.<br>
-                                • Implemented back-end logic and APIs using NodeJS and ExpressJS for seamless front-end and database communication.<br>
-                                • Deployed and managed web applications using AWS cloud services, ensuring high availability.<br>
-                                • Troubleshot and resolved issues, bugs, and performance bottlenecks across the entire stack.
+                                • Engineered responsive, modular user interfaces, improving cross-device accessibility.<br>
+                                • Architected robust APIs to ensure seamless client-server data flow.<br>
+                                • Collaborated in a remote environment to troubleshoot, debug, and resolve performance bottlenecks.
                             </p>
-                            <span class="qualification__date">Aug 2023 - May 2024</span>
+                            <span class="qualification__date">May 2025 - July 2025</span>
                         </div>
+
                         <div class="qualification__item">
-                            <h3 class="qualification__title">Python Programming</h3>
+                            <h3 class="qualification__title">Python Full Stack Developer Trainee — <i>PySpiders, Bengaluru</i></h3>
                             <p class="qualification__description" style="text-align:justify;">
-                                • Basics — Python syntax, variables, data types, operators, conditionals, loops, and functions.<br>
-                                • Data Structures — lists, tuples, dictionaries, and sets for efficient data manipulation.<br>
-                                • File Handling — reading and writing text files and CSV formats.<br>
-                                • Libraries — Pandas, Flask/Django, NumPy for data analysis, web development, and numerical computing.
+                                • Implemented advanced Object-Oriented Programming (OOP) concepts in Python.<br>
+                                • Developed full-stack applications utilizing Django/Flask for backend operations and responsive UI frameworks.<br>
+                                • Managed databases and optimized SQL queries for high-performance data retrieval.
                             </p>
-                            <span class="qualification__date">December 2024 - Jun 2025</span>
+                            <span class="qualification__date">Present</span>
                         </div>
+
                     </div>
                 </div>
 
@@ -164,47 +163,22 @@
                     </h3>
                     <div class="d-grid qualification__content">
                         <div class="qualification__item">
-                            <h3 class="qualification__title">Bachelor of Computer Science and Engineering — <i>Hindusthan Institution</i></h3>
+                            <h3 class="qualification__title">Bachelor of Engineering in Computer Science and Engineering — <i>Hindusthan Institute of Technology</i></h3>
                             <p class="qualification__description" style="text-align:justify;">
-                                Strong foundation in Data Structures & Algorithms, Software Design, and Development. Honed programming skills through various projects and assignments.
+                                Built a strong foundation in Data Structures & Algorithms, Software Design, and Cybersecurity. Honed practical programming skills through extensive hands-on projects.
                             </p>
-                            <span class="qualification__date">Sep 2022 - April 2026</span>
+                            <span class="qualification__date">Class of 2026</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Services -->
-        <section id="service" class="section service">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Services</h2>
-                    <span class="section__subtitle">What I do</span>
-                </div>
-                <div class="d-grid service__wrapper">
-                    <div class="service__card">
-                        <div class="service__icon"><i class="ri-layout-4-fill"></i></div>
-                        <h3 class="service__title">Frontend<br>Development</h3>
-                    </div>
-                    <div class="service__card">
-                        <div class="service__icon"><i class="ri-code-s-slash-line"></i></div>
-                        <h3 class="service__title">Backend<br>Development</h3>
-                    </div>
-                    <div class="service__card">
-                        <div class="service__icon"><i class="bx bxl-python"></i></div>
-                        <h3 class="service__title">OOPs in Python</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects -->
         <section id="project" class="section project">
             <div class="container">
                 <div class="section__header">
-                    <h2 class="section__title">Projects</h2>
-                    <span class="section__subtitle">My recent work</span>
+                    <h2 class="section__title">Featured Projects</h2>
+                    <span class="section__subtitle">What I've built</span>
                 </div>
 
                 <div class="slider-container">
@@ -212,42 +186,45 @@
                     <button class="slider-btn right" aria-label="Next">&#10095;</button>
 
                     <div class="project-slider">
+                        
                         <div class="project__content">
-                            <img src="asset/project1.png" class="project__img" alt="Online Admission Management">
-                            <h3 class="project__title">Online Admission Management</h3>
-                            <p class="project__description">Web-based platform for prospective students to apply and track admissions online.</p>
-                            <a href="https://github.com/dhanushmsr/Online-admission-management" target="_blank" class="project__link">View Project <i class="ri-arrow-right-line"></i></a>
+                            <img src="asset/project6.png" class="project__img" alt="OmniServe Restaurant Management System">
+                            <h3 class="project__title">OmniServe RMS</h3>
+                            <p class="project__description">Full-stack platform with real-time AJAX order tracking, secure payments, and an automated POS dashboard.</p>
+                            <div style="display: flex; gap: 1rem; margin-top: auto;">
+                                <a href="https://ganeshamuehlacker.com/" target="_blank" class="project__link" style="color: var(--color-primary);"><i class="ri-external-link-line"></i> Live Demo</a>
+                                <a href="https://github.com/dhanushmsr/global-food-ecommerce-django" target="_blank" class="project__link"><i class="ri-github-fill"></i> GitHub</a>
+                            </div>
                         </div>
-                        <div class="project__content">
-                            <img src="asset/project2.png" class="project__img" alt="Handwritten to Digital Notes">
-                            <h3 class="project__title">Handwritten to Digital Notes</h3>
-                            <p class="project__description">OCR technology that converts images of handwriting into machine-readable PDFs.</p>
-                            <a href="https://github.com/dhanushmsr/Handwritten-notes-to-digital-notes" target="_blank" class="project__link">View Project <i class="ri-arrow-right-line"></i></a>
-                        </div>
-                        <div class="project__content">
-                            <img src="asset/project3.png" class="project__img" alt="Face Recognition Attendance">
-                            <h3 class="project__title">Face Recognition Attendance</h3>
-                            <p class="project__description">Automated attendance tracking system leveraging computer vision with OpenCV.</p>
-                            <a href="https://github.com/dhanushmsr/Attendance-Monitoring-System" target="_blank" class="project__link">View Project <i class="ri-arrow-right-line"></i></a>
-                        </div>
+
                         <div class="project__content">
                             <img src="asset/project4.png" class="project__img" alt="Secure File Transmission">
                             <h3 class="project__title">Secure File Transmission</h3>
-                            <p class="project__description">Real-time file transfer with AES-256 encryption using Flask and Socket.IO.</p>
-                            <a href="https://github.com/dhanushmsr/Secure-File-Transmissions" target="_blank" class="project__link">View Project <i class="ri-arrow-right-line"></i></a>
+                            <p class="project__description">Real-time file transfer system utilizing AES-256 encryption, built with Python Flask and Socket.IO.</p>
+                            <a href="https://github.com/dhanushmsr/Secure-File-Transmissions" target="_blank" class="project__link"><i class="ri-github-fill"></i> View Code</a>
                         </div>
+                        
+                        <div class="project__content">
+                            <img src="asset/project_lms.png" class="project__img" alt="Logistics Management System">
+                            <h3 class="project__title">Logistics Management System</h3>
+                            <p class="project__description">Comprehensive logistics tracker featuring a React frontend integrated with a robust Oracle/SQL database backend.</p>
+                            <a href="https://github.com/dhanushmsr" target="_blank" class="project__link"><i class="ri-github-fill"></i> View Code</a>
+                        </div>
+
                         <div class="project__content">
                             <img src="asset/project5.png" class="project__img" alt="LLM-Based Tour Guide">
                             <h3 class="project__title">LLM-Based Tour Guide</h3>
-                            <p class="project__description">AI-powered travel recommendations via a personalized Django chat interface</p>
-                            <a href="https://github.com/dhanushmsr/Tour-Guide-With-LLM-and-Voice-based-guide" target="_blank" class="project__link">View Project <i class="ri-arrow-right-line"></i></a>
+                            <p class="project__description">AI-powered travel recommendations via a personalized Django chat interface.</p>
+                            <a href="https://github.com/dhanushmsr/Tour-Guide-With-LLM-and-Voice-based-guide" target="_blank" class="project__link"><i class="ri-github-fill"></i> View Code</a>
                         </div>
+
                         <div class="project__content">
-                            <img src="asset/project6.png" class="project__img" alt="Restaurant Management System">
-                            <h3 class="project__title">OmniServe Restaurant Management System</h3>
-                            <p class="project__description">A full-stack restaurant management platform featuring a mobile-first customer storefront with real-time AJAX order tracking, integrated secure payments, and a fully automated Point-of-Sale (POS) dashboard for kitchen staff.</p>
-                            <a href="https://github.com/dhanushmsr/global-food-ecommerce-django" target="_blank" class="project__link">View Project <i class="ri-arrow-right-line"></i></a>
+                            <img src="asset/project1.png" class="project__img" alt="Online Admission Management">
+                            <h3 class="project__title">Online Admission Management</h3>
+                            <p class="project__description">Web-based platform for prospective students to apply and track admissions online securely.</p>
+                            <a href="https://github.com/dhanushmsr/Online-admission-management" target="_blank" class="project__link"><i class="ri-github-fill"></i> View Code</a>
                         </div>
+
                     </div>
 
                     <div class="slider-dots">
@@ -261,20 +238,17 @@
             </div>
         </section>
 
-        <!-- Contact -->
         <section id="contact" class="section contact">
             <div class="container">
                 <div class="d-grid contact__wrapper">
                     <div class="contact__content">
-                        <h2 class="contact__title">Interested in working together? Let's talk</h2>
+                        <h2 class="contact__title">Ready to build something great?</h2>
                         <p class="contact__description" style="text-align:justify;">
-                            Ready to work together on your next software project? I'd love to hear from you!
-                            Whether you have a specific project in mind or just want to chat about your software development needs, I am here to help.
-                            I will respond as quickly as possible and look forward to connecting with you soon.
+                            I am currently actively seeking roles as a Software Developer. Whether you have a specific opening or just want to connect regarding engineering challenges, my inbox is always open.
                         </p>
                     </div>
                     <div class="contact__btn">
-                        <a href="https://mail.google.com/mail/u/0/?hl=en&tf=cm&fs=1&to=mdhanushdsm@gmail.com" class="btn btn--secondary">Get in touch</a>
+                        <a href="mailto:mdhanushdsm@gmail.com" class="btn btn--secondary">Get in touch</a>
                     </div>
                 </div>
             </div>
@@ -282,18 +256,14 @@
 
     </main>
 
-    <!-- Footer -->
     <footer id="footer" class="footer">
         <div class="container">
             <div class="d-grid footer__wrapper">
                 <div class="footer__content">
-                    <h4 class="footer__title">Follow Me</h4>
+                    <h4 class="footer__title">Connect with me</h4>
                     <ul class="footer__social-list">
                         <li class="footer__social-item">
-                            <a href="https://api.whatsapp.com/send?phone=254795756638" target="_blank" class="footer__social-link"><i class="ri-whatsapp-fill"></i></a>
-                        </li>
-                        <li class="footer__social-item">
-                            <a href="https://mail.google.com/mail/u/0/?hl=en&tf=cm&fs=1&to=mdhanushdsm@gmail.com" target="_blank" class="footer__social-link"><i class="ri-mail-fill"></i></a>
+                            <a href="mailto:mdhanushdsm@gmail.com" target="_blank" class="footer__social-link"><i class="ri-mail-fill"></i></a>
                         </li>
                         <li class="footer__social-item">
                             <a href="https://github.com/dhanushmsr" target="_blank" class="footer__social-link"><i class="ri-github-fill"></i></a>
@@ -310,59 +280,8 @@
         </div>
     </footer>
 
-    <!-- Scripts: libraries first, then main.js — NO inline script blocks -->
     <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="asset/js/main.js"></script>
-    <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const slider = document.querySelector(".project-slider");
-    const rightBtn = document.querySelector(".slider-btn.right");
-    const leftBtn = document.querySelector(".slider-btn.left");
-    
-    // Safety check: if these aren't found, the script stops here
-    if (!slider || !rightBtn || !leftBtn) return;
-
-    const getScrollStep = () => {
-        const card = document.querySelector(".project__content");
-        // Card width (260px or 320px) + gap (16px or 25px)
-        return card ? card.offsetWidth + 16 : 300;
-    };
-
-    // --- 1. Arrow Logic ---
-    rightBtn.onclick = () => {
-        slider.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
-        resetAutoTimer();
-    };
-
-    leftBtn.onclick = () => {
-        slider.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
-        resetAutoTimer();
-    };
-
-    // --- 2. Auto-Scroll Logic ---
-    let autoTimer = setInterval(moveAuto, 5000);
-
-    function moveAuto() {
-        const maxScroll = slider.scrollWidth - slider.clientWidth;
-        
-        // If we are at the end (within 10px), go back to start
-        if (slider.scrollLeft >= maxScroll - 10) {
-            slider.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            slider.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
-        }
-    }
-
-    function resetAutoTimer() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(moveAuto, 5000);
-    }
-
-    // Pause on hover
-    slider.addEventListener('mouseenter', () => clearInterval(autoTimer));
-    slider.addEventListener('mouseleave', () => resetAutoTimer());
-});
-</script>
+    <script src="script.js"></script>
 
 </body>
 </html>
