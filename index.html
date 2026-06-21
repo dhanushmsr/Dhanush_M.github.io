@@ -20,7 +20,209 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --color-primary: #25ab75;
+            --color-primary-dark: #208c61;
+            --color-bg-primary: #1a1a1a;
+            --color-bg-secondary: #242424;
+            --color-bg-footer: #151515;
+            --color-white: #ffffff;
+            --color-text: #676767;
+            --color-border: #373737;
+            --ff-body: "Space Grotesk", sans-serif;
+            --fs-sm: 1.4rem;
+            --fs-md: 1.6rem;
+            --fs-lg: 2rem;
+            --fs-xl: 2.4rem;
+            --fs-xxl: 3.2rem;
+            --fs-biggest: clamp(3rem, 8vw, 5rem);
+            --fw-regular: 400;
+            --fw-medium: 500;
+            --fw-semibold: 600;
+            --fw-bold: 700;
+            --zindex-menu: 1000;
+            --zindex-fixed: 1010;
+            --width-container: 98rem;
+            --height-header: 10rem;
+            --height-header--scroll: 8rem;
+            --transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+            --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        h1, h2, h3, h4 { color: var(--color-white); font-weight: var(--fw-bold); }
+        html { font-size: 62.5%; scroll-behavior: smooth; }
+        body, h1, h2, h3, h4, ul, p { margin: 0; padding: 0; }
+        ul { list-style-type: none; }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: var(--color-text); }
+
+        body {
+            background-color: var(--color-bg-primary);
+            font-family: var(--ff-body);
+            font-size: var(--fs-md);
+            color: var(--color-text);
+            margin-top: var(--height-header);
+            line-height: 1.6;
+            overflow-x: hidden;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .bx { font-family: 'boxicons' !important; font-weight: normal; font-style: normal; }
+        .container { width: 90%; max-width: var(--width-container); margin: auto; }
+        .section { padding: 8rem 0; }
+        .section__header { margin-bottom: 5rem; text-align: center; }
+        .section__title { font-size: var(--fs-xl); margin-bottom: 0.5rem; }
+
+        .section__subtitle {
+            font-weight: var(--fw-bold);
+            font-size: var(--fs-md);
+            position: relative;
+            display: inline-block;
+        }
+        .section__subtitle::after {
+            position: absolute;
+            content: "";
+            width: 50%;
+            height: 0.3rem;
+            background-color: var(--color-primary);
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .d-grid { display: grid; gap: 3rem; }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3.5rem;
+            color: var(--color-white);
+            font-weight: var(--fw-semibold);
+            transition: var(--transition);
+            border-radius: 0.5rem;
+        }
+        .btn--primary { background-color: var(--color-primary); color: var(--color-white); }
+        .btn--primary:hover { background-color: var(--color-primary-dark); transform: translateY(-2px); box-shadow: var(--box-shadow);}
+        .btn--secondary { background-color: var(--color-white); color: var(--color-bg-primary); }
+        .btn--secondary:hover { background-color: var(--color-primary); color: var(--color-white); transform: translateY(-2px);}
+
+        /* Header */
+        .header {
+            background-color: var(--color-bg-primary);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            height: var(--height-header);
+            z-index: var(--zindex-menu);
+            transition: var(--transition);
+        }
+        .header--scroll { height: var(--height-header--scroll); box-shadow: var(--box-shadow); background-color: rgba(26, 26, 26, 0.95); backdrop-filter: blur(10px); }
+
+        .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; }
+        .nav__brand { font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--color-primary); display: flex; align-items: center; column-gap: 0.5rem; }
+        .nav__brand i { color: var(--color-white); }
+        .nav__list { display: flex; column-gap: 3rem; }
+        .nav__link { transition: var(--transition); color: var(--color-white); font-weight: var(--fw-medium);}
+        .nav__link:hover { color: var(--color-primary); }
+        .nav__toggle { display: none; font-size: var(--fs-xl); color: var(--color-white); cursor: pointer; transition: var(--transition); }
+        .nav__toggle:hover { color: var(--color-primary); }
+
+        @media screen and (max-width: 768px) {
+            .nav__list { flex-direction: column; justify-content: center; align-items: center; row-gap: 4rem; }
+            .nav__menu { position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: var(--color-bg-primary); display: none; justify-content: center; z-index: var(--zindex-menu); }
+            .nav__menu--open { display: flex; }
+            .nav__toggle { display: block; }
+            .nav__brand, .nav__toggle { z-index: var(--zindex-fixed); }
+        }
+
+        /* Hero */
+        .hero__wrapper { min-height: calc(100vh - var(--height-header)); padding: 5rem 0; align-items: center; }
+        .hero__content { text-align: left; }
+        .hero__title { font-size: var(--fs-biggest); margin-bottom: 2rem; position: relative; line-height: 1.1; }
+        .hero__description { margin-bottom: 3rem; color: #a0a0a0; }
+        .hero__img { width: 100%; max-width: 450px; justify-self: center; border-radius: 2rem; box-shadow: 0 10px 30px rgba(37, 171, 117, 0.2); transition: var(--transition); }
+        .hero__img:hover { transform: scale(1.02); }
+
+        /* Skills */
+        .skills__wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .skills__content { background-color: var(--color-bg-secondary); padding: 2.5rem; border-radius: 1rem; border: 1px solid var(--color-border); transition: var(--transition); }
+        .skills__content:hover { border-color: var(--color-primary); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2);}
+        .skills__subtitle { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--color-white); }
+        .skills__list { list-style: none; padding: 0; }
+        .skills__item { font-weight: var(--fw-medium); font-size: 1.6rem; display: flex; align-items: center; margin-bottom: 1.2rem; color: #a0a0a0; }
+        .skills__item i { margin-right: 1rem; color: var(--color-primary); font-size: 2rem; }
+
+        /* Qualification */
+        .qualification__wrapper { margin-bottom: 6rem; }
+        .qualification__name { display: flex; column-gap: 1rem; font-size: var(--fs-lg); margin-bottom: 3rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border); }
+        .qualification__content { grid-template-columns: 1fr; gap: 3rem;}
+        .qualification__item { background: var(--color-bg-secondary); padding: 3rem; border-radius: 1rem; border-left: 4px solid var(--color-primary); transition: var(--transition);}
+        .qualification__item:hover { transform: translateX(5px); }
+        .qualification__title { font-size: var(--fs-md); font-weight: var(--fw-semibold); margin-bottom: 1rem; color: var(--color-white);}
+        .qualification__title i { font-weight: normal; color: #a0a0a0; font-size: 1.4rem;}
+        .qualification__description { margin-bottom: 2rem; color: #a0a0a0; }
+        .qualification__date { display: inline-block; background: rgba(37, 171, 117, 0.1); color: var(--color-primary); padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 1.2rem; font-weight: var(--fw-semibold); }
+
+        /* Project Slider */
+        .slider-container { position: relative; margin-top: 2rem; padding: 0 50px; }
+        .project-slider { display: flex; flex-wrap: nowrap; gap: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 20px 0 30px; scrollbar-width: none; }
+        .project-slider::-webkit-scrollbar { display: none; }
+        .project__content { flex: 0 0 var(--card-w, 320px); width: var(--card-w, 320px); background: var(--color-bg-secondary); padding: 2rem; border-radius: 1.5rem; border: 1px solid var(--color-border); transition: transform 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; }
+        .project__content:hover { transform: translateY(-10px); border-color: var(--color-primary); box-shadow: 0 10px 20px rgba(0,0,0,0.3);}
+        .project__img { width: 100%; height: 180px; object-fit: cover; border-radius: 1rem; margin-bottom: 1.5rem; border: 1px solid var(--color-border); }
+        .project__title { font-size: 2rem; margin-bottom: 1rem; color: var(--color-white); }
+        .project__description { font-size: 1.4rem; color: #a0a0a0; margin-bottom: 2rem; flex-grow: 1;}
+        .project__link { font-size: 1.4rem; font-weight: var(--fw-semibold); color: var(--color-white); display: flex; align-items: center; column-gap: 0.5rem; transition: var(--transition); }
+        .project__link:hover { color: var(--color-primary); }
+
+        .slider-btn { position: absolute; top: 40%; transform: translateY(-50%); background: var(--color-bg-secondary); color: var(--color-white); border: 1px solid var(--color-border); width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; font-size: 2rem; transition: all 0.3s ease; }
+        .slider-btn.left  { left: 0; }
+        .slider-btn.right { right: 0; }
+        .slider-btn:hover { background: var(--color-primary); color: white; border-color: var(--color-primary);}
+        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 2rem; }
+        .dot { width: 12px; height: 12px; background: var(--color-border); border-radius: 50%; cursor: pointer; transition: var(--transition); }
+        .dot.active { background: var(--color-primary); width: 30px; border-radius: 10px; }
+
+        /* Contact & Footer */
+        .contact__wrapper { background: var(--color-bg-secondary); padding: 5rem; border-radius: 2rem; align-items: center; text-align: center; border: 1px solid var(--color-border);}
+        .contact__title { font-size: var(--fs-xxl); margin-bottom: 2rem; }
+        .contact__description { margin-bottom: 3rem; color: #a0a0a0; max-width: 600px; margin-left: auto; margin-right: auto;}
+        .footer { background-color: var(--color-bg-footer); padding: 4rem 0; margin-top: 8rem; border-top: 1px solid var(--color-border);}
+        .footer__wrapper { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+        .footer__title { display: none;}
+        .footer__social-list { display: flex; gap: 2.5rem; }
+        .footer__social-link { background: var(--color-bg-secondary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 2rem; color: var(--color-white); transition: var(--transition); }
+        .footer__social-link:hover { background: var(--color-primary); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(37, 171, 117, 0.4);}
+        .footer__copyright { font-size: 1.4rem; text-align: center; color: var(--color-text); margin-top: 3rem;}
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 0.8rem; background-color: var(--color-bg-primary); }
+        ::-webkit-scrollbar-thumb { background-color: var(--color-border); border-radius: 1rem; }
+        ::-webkit-scrollbar-thumb:hover { background-color: var(--color-primary); }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .hero__wrapper { grid-template-columns: 1fr; text-align: center; gap: 4rem;}
+            .hero__content { text-align: center; }
+            .hero__actions { justify-content: center; }
+            .hero__img { max-width: 300px; }
+            .qualification__content { grid-template-columns: 1fr; }
+            .contact__wrapper { padding: 3rem 2rem; }
+        }
+        @media screen and (min-width: 969px) {
+            .hero__wrapper { grid-template-columns: 1fr 1fr; }
+            .qualification__content { grid-template-columns: 1fr 1fr; }
+            .contact__wrapper { display: flex; justify-content: space-between; text-align: left; }
+            .contact__description { margin-left: 0; }
+        }
+    </style>
 </head>
 
 <body>
@@ -75,14 +277,14 @@
                 </div>
                 
                 <div class="about__content" style="max-width: 800px; margin: 0 auto 5rem; text-align: center;">
-                    <h3 class="about__title">Bridging Backend Architecture with Seamless Frontends.</h3>
+                    <h3 class="about__title" style="margin-bottom:2rem;">Bridging Backend Architecture with Seamless Frontends.</h3>
                     <p class="about__description" style="text-align:justify;">
                         I am a 2026 B.E. Computer Science and Engineering graduate with a strong foundation in secure system design and full-stack development. My technical journey has taken me from architecting APIs with Node.js and Django to building responsive interfaces with React. Beyond writing clean, maintainable code, I have a keen interest in cybersecurity protocols like AES-256 encryption. When I step away from the keyboard, I apply strategic thinking as a chess player and coach, training the next generation of players.
                     </p>
                 </div>
                 
                 <div class="skills">
-                    <h3 class="skills__title" style="text-align: center; margin-bottom: 3rem;">Core Technologies</h3>
+                    <h3 class="skills__title" style="text-align: center; margin-bottom: 3rem; color:var(--color-white); font-size:var(--fs-lg);">Core Technologies</h3>
                     <div class="skills__wrapper">
                         <div class="skills__content">
                             <h4 class="skills__subtitle">Programming Languages</h4>
@@ -201,28 +403,28 @@
                             <img src="asset/project4.png" class="project__img" alt="Secure File Transmission">
                             <h3 class="project__title">Secure File Transmission</h3>
                             <p class="project__description">Real-time file transfer system utilizing AES-256 encryption, built with Python Flask and Socket.IO.</p>
-                            <a href="https://github.com/dhanushmsr/Secure-File-Transmissions" target="_blank" class="project__link"><i class="ri-github-fill"></i> View Code</a>
+                            <a href="https://github.com/dhanushmsr/Secure-File-Transmissions" target="_blank" class="project__link" style="margin-top: auto;"><i class="ri-github-fill"></i> View Code</a>
                         </div>
                         
                         <div class="project__content">
                             <img src="asset/project_lms.png" class="project__img" alt="Logistics Management System">
                             <h3 class="project__title">Logistics Management System</h3>
                             <p class="project__description">Comprehensive logistics tracker featuring a React frontend integrated with a robust Oracle/SQL database backend.</p>
-                            <a href="https://github.com/dhanushmsr" target="_blank" class="project__link"><i class="ri-github-fill"></i> View Code</a>
+                            <a href="https://github.com/dhanushmsr" target="_blank" class="project__link" style="margin-top: auto;"><i class="ri-github-fill"></i> View Code</a>
                         </div>
 
                         <div class="project__content">
                             <img src="asset/project5.png" class="project__img" alt="LLM-Based Tour Guide">
                             <h3 class="project__title">LLM-Based Tour Guide</h3>
                             <p class="project__description">AI-powered travel recommendations via a personalized Django chat interface.</p>
-                            <a href="https://github.com/dhanushmsr/Tour-Guide-With-LLM-and-Voice-based-guide" target="_blank" class="project__link"><i class="ri-github-fill"></i> View Code</a>
+                            <a href="https://github.com/dhanushmsr/Tour-Guide-With-LLM-and-Voice-based-guide" target="_blank" class="project__link" style="margin-top: auto;"><i class="ri-github-fill"></i> View Code</a>
                         </div>
 
                         <div class="project__content">
                             <img src="asset/project1.png" class="project__img" alt="Online Admission Management">
                             <h3 class="project__title">Online Admission Management</h3>
                             <p class="project__description">Web-based platform for prospective students to apply and track admissions online securely.</p>
-                            <a href="https://github.com/dhanushmsr/Online-admission-management" target="_blank" class="project__link"><i class="ri-github-fill"></i> View Code</a>
+                            <a href="https://github.com/dhanushmsr/Online-admission-management" target="_blank" class="project__link" style="margin-top: auto;"><i class="ri-github-fill"></i> View Code</a>
                         </div>
 
                     </div>
@@ -281,7 +483,155 @@
     </footer>
 
     <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
+            // 1. Mobile Navigation Toggle
+            const navMenu   = document.getElementById("nav-menu");
+            const navToggle = document.getElementById("nav-toggle");
+            const header    = document.getElementById("header");
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener("click", () => {
+                    const isOpen = navMenu.classList.toggle("nav__menu--open");
+                    navToggle.classList.replace(
+                        isOpen ? "ri-menu-3-line" : "ri-close-line",
+                        isOpen ? "ri-close-line"  : "ri-menu-3-line"
+                    );
+                });
+
+                document.querySelectorAll(".nav__item").forEach(item => {
+                    item.addEventListener("click", () => {
+                        navMenu.classList.remove("nav__menu--open");
+                        navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
+                    });
+                });
+            }
+
+            // 2. Header Scroll Effect
+            if (header) {
+                window.addEventListener("scroll", () => {
+                    header.classList.toggle("header--scroll", window.scrollY > 40);
+                });
+            }
+
+            // 3. Project Slider Logic
+            const slider   = document.querySelector(".project-slider");
+            const leftBtn  = document.querySelector(".slider-btn.left");
+            const rightBtn = document.querySelector(".slider-btn.right");
+            const dots     = document.querySelectorAll(".dot");
+
+            function cardsInView() {
+                const w = window.innerWidth;
+                if (w >= 1024) return 3;
+                if (w >= 768) return 2;
+                return 1;
+            }
+
+            function setCardWidth() {
+                if (!slider) return;
+                const containerW = slider.parentElement.clientWidth - 100;
+                const gap        = parseFloat(getComputedStyle(slider).gap) || 20;
+                const n          = cardsInView();
+                const cardW      = Math.floor((containerW - gap * (n - 1)) / n);
+                slider.style.setProperty('--card-w', cardW + 'px');
+            }
+
+            function getCardWidth() {
+                if (!slider) return 320;
+                const card = slider.querySelector(".project__content");
+                if (!card) return 320;
+                const gap = parseFloat(getComputedStyle(slider).gap) || 20;
+                return card.getBoundingClientRect().width + gap;
+            }
+
+            function smoothScrollTo(targetLeft, duration) {
+                const start    = slider.scrollLeft;
+                const distance = targetLeft - start;
+                const t0       = performance.now();
+
+                function step(now) {
+                    const p    = Math.min((now - t0) / duration, 1);
+                    const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+                    slider.scrollLeft = start + distance * ease;
+                    if (p < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        updateDots();
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            function updateDots() {
+                if(!slider || !dots.length) return;
+                const idx = Math.round(slider.scrollLeft / getCardWidth());
+                dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+            }
+
+            let autoTimer;
+
+            function startAuto() {
+                autoTimer = setInterval(() => {
+                    if(!slider) return;
+                    const atEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 10;
+                    smoothScrollTo(atEnd ? 0 : slider.scrollLeft + getCardWidth(), 500);
+                }, 5000);
+            }
+
+            function resetAuto() {
+                clearInterval(autoTimer);
+                startAuto();
+            }
+
+            if (slider && leftBtn && rightBtn) {
+                setCardWidth();
+                window.addEventListener('resize', setCardWidth);
+
+                rightBtn.addEventListener("click", () => { 
+                    smoothScrollTo(slider.scrollLeft + getCardWidth(), 400); 
+                    resetAuto(); 
+                });
+                
+                leftBtn.addEventListener("click",  () => { 
+                    smoothScrollTo(slider.scrollLeft - getCardWidth(), 400); 
+                    resetAuto(); 
+                });
+
+                dots.forEach((d, i) => {
+                    d.addEventListener("click", () => { 
+                        smoothScrollTo(getCardWidth() * i, 400); 
+                        resetAuto(); 
+                    });
+                });
+
+                slider.addEventListener("mouseenter",  () => clearInterval(autoTimer));
+                slider.addEventListener("mouseleave", resetAuto);
+                slider.addEventListener("touchstart", () => clearInterval(autoTimer), { passive: true });
+                slider.addEventListener("touchend",   resetAuto);
+                slider.addEventListener("scroll",     updateDots, { passive: true });
+
+                startAuto();
+            }
+
+            // 4. ScrollReveal Animation
+            if (typeof ScrollReveal !== "undefined") {
+                const sr = ScrollReveal({
+                    origin: "top",
+                    distance: "40px",
+                    duration: 1500,
+                    delay: 200,
+                    reset: false, 
+                });
+
+                sr.reveal(".hero__content, .section__header");
+                sr.reveal(".hero__img",              { origin: "bottom", delay: 400 });
+                sr.reveal(".about__content",         { origin: "left" });
+                sr.reveal(".qualification__item",    { interval: 150 });
+                sr.reveal(".skills__content",        { interval: 100 });
+                sr.reveal(".contact__wrapper",       { origin: "bottom" });
+            }
+        });
+    </script>
 </body>
 </html>
