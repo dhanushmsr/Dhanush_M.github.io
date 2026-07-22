@@ -161,7 +161,7 @@
             font-family: var(--ff-mono); font-size: 1.3rem; letter-spacing: 0.03em;
             color: var(--clr-primary); margin-bottom: 1.2rem;
         }
-        .section__eyebrow::before { content: "//"; color: var(--clr-text-dim); }
+        .section__eyebrow::before { content: ""; color: var(--clr-text-dim); }
         .section__title { font-size: var(--fs-xxl); margin-bottom: 0.5rem; font-weight: var(--fw-semibold); }
 
         .d-grid { display: grid; gap: 3rem; }
@@ -199,7 +199,7 @@
         .header--scroll { height: var(--height-header--scroll); border-bottom-color: var(--clr-border); background-color: rgba(20, 22, 26, 0.97); }
 
         .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; }
-        .nav__brand { font-size: var(--fs-lg); font-weight: var(--fw-semibold); font-family: var(--ff-display); color: var(--clr-white); display: flex; align-items: center; column-gap: 1rem; }
+        .nav__brand { font-size: var(--fs-lg); font-weight: var(--fw-semibold); font-family: var(--ff-display); color: var(--clr-white); display: flex; align-items: center; column-gap: 1rem; position: relative; z-index: var(--zindex-fixed); }
         .nav__brand span { color: var(--clr-primary); }
         .nav__logo { width: 3.2rem; height: 3.2rem; border-radius: 0.6rem; }
         .nav__list { display: flex; column-gap: 3rem; }
@@ -207,16 +207,40 @@
         .nav__link::after { content: ""; position: absolute; left: 0; bottom: -0.6rem; width: 0; height: 2px; background: var(--clr-primary); transition: var(--transition); }
         .nav__link:hover, .nav__link--active { color: var(--clr-white); }
         .nav__link--active::after { width: 100%; }
-        .nav__toggle { display: none; font-size: var(--fs-xl); color: var(--clr-white); cursor: pointer; transition: var(--transition); }
+        .nav__toggle { display: none; font-size: var(--fs-xl); color: var(--clr-white); cursor: pointer; transition: var(--transition); position: relative; z-index: var(--zindex-fixed); }
         .nav__toggle:hover { color: var(--clr-primary); }
 
         @media screen and (max-width: 768px) {
-            .nav__list { flex-direction: column; justify-content: center; align-items: center; row-gap: 3.2rem; }
-            .nav__menu { position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: var(--clr-bg); display: none; justify-content: center; z-index: var(--zindex-menu); }
-            .nav__menu--open { display: flex; }
+            .nav__list { flex-direction: column; justify-content: flex-start; align-items: flex-start; row-gap: 2.2rem; width: 100%; }
+            .nav__menu {
+                position: fixed; top: 0; left: 0; bottom: 0; height: 100vh; height: 100dvh;
+                width: min(78vw, 300px);
+                background-color: var(--clr-surface); border-right: 1px solid var(--clr-border);
+                box-shadow: 20px 0 40px rgba(0,0,0,0.35);
+                display: flex; flex-direction: column; justify-content: flex-start;
+                overflow-y: auto; margin: 0;
+                padding: calc(var(--height-header) + 1.5rem) 2.6rem 3rem;
+                z-index: var(--zindex-menu);
+                transform: translateX(-100%);
+                transition: transform 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+            }
+            .nav__menu--open { transform: translateX(0); }
+            .nav__menu-eyebrow {
+                display: block; font-family: var(--ff-mono); font-size: 1.2rem; color: var(--clr-primary);
+                margin-bottom: 2rem; letter-spacing: 0.03em;
+            }
+            .nav__menu-eyebrow::before { content: ""; color: var(--clr-text-dim); }
             .nav__toggle { display: block; }
-            .nav__brand, .nav__toggle { z-index: var(--zindex-fixed); }
         }
+
+        .nav__backdrop {
+            position: fixed; inset: 0; background: rgba(8, 9, 11, 0.6);
+            z-index: 999; opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .nav__backdrop--open { opacity: 1; visibility: visible; pointer-events: auto; }
+
+        body.no-scroll { overflow: hidden; height: 100%; }
 
         /* Scroll progress bar */
         .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--clr-primary), var(--clr-gold)); z-index: 1020; transition: width 0.1s linear; }
@@ -225,7 +249,7 @@
         .hero__wrapper { min-height: calc(100vh - var(--height-header)); padding: 5rem 0; align-items: center; }
         .hero__content { text-align: left; }
         .hero__eyebrow { font-family: var(--ff-mono); font-size: 1.4rem; color: var(--clr-primary); margin-bottom: 1.6rem; display: block; }
-        .hero__eyebrow::before { content: "~/portfolio "; color: var(--clr-text-dim); }
+        .hero__eyebrow::before { content: ""; color: var(--clr-text-dim); }
         .hero__title { font-size: var(--fs-biggest); margin-bottom: 1.5rem; line-height: 1.08; font-weight: var(--fw-semibold); }
         .hero__typed-row { font-family: var(--ff-mono); font-size: 1.8rem; color: var(--clr-gold); margin-bottom: 2.4rem; min-height: 2.6rem; display: flex; align-items: center; }
         .hero__cursor { display: inline-block; width: 2px; height: 1.8rem; background: var(--clr-gold); margin-left: 0.4rem; animation: blink 1s step-end infinite; }
@@ -385,6 +409,7 @@
                     Dhanush<span>M</span>
                 </a>
                 <div class="nav__menu" id="nav-menu">
+                    <!-- <span class="nav__menu-eyebrow">navigate</span> -->
                     <ul class="nav__list">
                         <li class="nav__item"><a href="#hero" class="nav__link" data-nav="hero">Home</a></li>
                         <li class="nav__item"><a href="#about" class="nav__link" data-nav="about">About</a></li>
@@ -400,6 +425,8 @@
             </nav>
         </div>
     </header>
+
+    <div class="nav__backdrop" id="nav-backdrop"></div>
 
     <main class="main">
 
@@ -435,7 +462,7 @@
         <section id="about" class="section about">
             <div class="container">
                 <div class="section__header">
-                    <span class="section__eyebrow">01 · about</span>
+                    <!-- <span class="section__eyebrow">01 · about</span> -->
                     <h2 class="section__title">About Me</h2>
                 </div>
 
@@ -534,7 +561,7 @@
         <section id="service" class="section service">
             <div class="container">
                 <div class="section__header">
-                    <span class="section__eyebrow">02 · services</span>
+                    <!-- <span class="section__eyebrow">02 · services</span> -->
                     <h2 class="section__title">What I Do</h2>
                 </div>
                 <div class="d-grid service__wrapper">
@@ -566,7 +593,7 @@
         <section id="qualification" class="section qualification">
             <div class="container">
                 <div class="section__header">
-                    <span class="section__eyebrow">03 · experience</span>
+                    <!-- <span class="section__eyebrow">03 · experience</span> -->
                     <h2 class="section__title">Experience &amp; Education</h2>
                 </div>
 
@@ -621,7 +648,7 @@
         <section id="project" class="section project">
             <div class="container">
                 <div class="section__header">
-                    <span class="section__eyebrow">04 · projects</span>
+                    <!-- <span class="section__eyebrow">04 · projects</span> -->
                     <h2 class="section__title">Featured Projects</h2>
                 </div>
 
@@ -724,7 +751,7 @@
         <section id="contact" class="section contact">
             <div class="container">
                 <div class="section__header">
-                    <span class="section__eyebrow">05 · contact</span>
+                    <!-- <span class="section__eyebrow">05 · contact</span> -->
                     <h2 class="section__title">Contact Me</h2>
                 </div>
                 <div class="contact__wrapper">
@@ -795,14 +822,25 @@
 
             const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-            // 1. Mobile Navigation Toggle
-            const navMenu   = document.getElementById("nav-menu");
-            const navToggle = document.getElementById("nav-toggle");
-            const header    = document.getElementById("header");
+            // 1. Mobile Navigation Toggle (slide-in drawer)
+            const navMenu     = document.getElementById("nav-menu");
+            const navToggle   = document.getElementById("nav-toggle");
+            const navBackdrop = document.getElementById("nav-backdrop");
+            const header      = document.getElementById("header");
+
+            function closeDrawer() {
+                navMenu.classList.remove("nav__menu--open");
+                if (navBackdrop) navBackdrop.classList.remove("nav__backdrop--open");
+                document.body.classList.remove("no-scroll");
+                navToggle.classList.remove("ri-close-line");
+                navToggle.classList.add("ri-menu-3-line");
+            }
 
             if (navToggle && navMenu) {
                 navToggle.addEventListener("click", () => {
                     const isOpen = navMenu.classList.toggle("nav__menu--open");
+                    if (navBackdrop) navBackdrop.classList.toggle("nav__backdrop--open", isOpen);
+                    document.body.classList.toggle("no-scroll", isOpen);
                     navToggle.classList.replace(
                         isOpen ? "ri-menu-3-line" : "ri-close-line",
                         isOpen ? "ri-close-line"  : "ri-menu-3-line"
@@ -810,11 +848,10 @@
                 });
 
                 document.querySelectorAll(".nav__item").forEach(item => {
-                    item.addEventListener("click", () => {
-                        navMenu.classList.remove("nav__menu--open");
-                        navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
-                    });
+                    item.addEventListener("click", closeDrawer);
                 });
+
+                if (navBackdrop) navBackdrop.addEventListener("click", closeDrawer);
             }
 
             // 2. Header Scroll Effect + Scroll Progress Bar
