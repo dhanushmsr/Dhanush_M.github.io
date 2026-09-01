@@ -213,8 +213,8 @@
 
         :focus-visible { outline: 2px solid var(--clr-primary); outline-offset: 4px; border-radius: 4px; }
 
-        /* Background Particle Canvas */
-        .bg-canvas {
+        /* Dynamic 3D Cybernetic Geometric & Perspective Wave Canvas */
+        .cyber-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -222,7 +222,7 @@
             height: 100vh;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.65;
+            opacity: 0.85;
         }
 
         .main, .header, .footer { position: relative; z-index: 1; }
@@ -460,19 +460,60 @@
             box-shadow: var(--box-shadow-3d);
             transform-style: preserve-3d;
             transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+            animation: heroImageIntro 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
+        @keyframes heroImageIntro {
+            0% {
+                opacity: 0;
+                transform: perspective(1200px) translateY(45px) scale(0.85) rotateX(16deg);
+                filter: blur(12px) brightness(0.6);
+            }
+            35% {
+                opacity: 0.7;
+                filter: blur(5px) brightness(1.25);
+            }
+            70% {
+                filter: blur(1px) brightness(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: perspective(1200px) translateY(0) scale(1) rotateX(0deg);
+                filter: blur(0px) brightness(1);
+            }
+        }
+
         .hero__3d-card::before {
             content: "";
             position: absolute;
-            inset: -2px;
+            inset: -3px;
             border-radius: 2.6rem;
             background: linear-gradient(135deg, var(--clr-primary), transparent 40%, var(--clr-cyan));
             z-index: -1;
             opacity: 0.6;
-            filter: blur(12px);
-            transition: opacity 0.4s ease;
+            filter: blur(14px);
+            transition: opacity 0.4s ease, filter 0.4s ease;
+            animation: auraPulse 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .hero__3d-card:hover::before { opacity: 0.9; filter: blur(18px); }
+
+        @keyframes auraPulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.75);
+                filter: blur(35px);
+            }
+            40% {
+                opacity: 1;
+                transform: scale(1.08);
+                filter: blur(22px);
+            }
+            100% {
+                opacity: 0.65;
+                transform: scale(1);
+                filter: blur(14px);
+            }
+        }
+        .hero__3d-card:hover::before { opacity: 0.95; filter: blur(20px); }
         .hero__img-inner {
             width: 100%;
             height: 100%;
@@ -888,21 +929,35 @@
 
         /* Responsive Breakpoints */
         @media screen and (max-width: 968px) {
-            .hero__wrapper { grid-template-columns: 1fr; text-align: center; gap: 5rem; }
-            .hero__content { text-align: center; }
+            .cyber-canvas { opacity: 0.28; }
+            .hero__wrapper {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3.5rem;
+                padding: 1.5rem 0 5rem;
+            }
+            .hero__3d-container {
+                order: -1;
+                margin: 0 auto 1.5rem;
+                width: 100%;
+            }
+            .hero__content {
+                order: 2;
+                text-align: center;
+            }
             .hero__typed-row { justify-content: center; }
             .hero__description { margin-left: auto; margin-right: auto; }
             .hero__actions { justify-content: center; }
-            .hero__3d-card { max-width: 330px; margin: 0 auto; }
+            .hero__3d-card { max-width: 310px; margin: 0 auto; }
             .status-bar { justify-content: center; }
             .metrics__grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
             .contact__wrapper { grid-template-columns: 1fr; padding: 3.5rem 2.4rem; text-align: center; }
             .contact__info { text-align: center; }
             .contact__availability { margin-left: auto; margin-right: auto; }
-            .badge-orbit--1 { left: -3%; }
-            .badge-orbit--2 { left: -4%; }
-            .badge-orbit--3 { right: -3%; }
-            .badge-orbit--4 { right: -3%; }
+            .badge-orbit--1 { left: -2%; }
+            .badge-orbit--2 { left: -3%; }
+            .badge-orbit--3 { right: -2%; }
+            .badge-orbit--4 { right: -2%; }
         }
 
         @media screen and (max-width: 480px) {
@@ -920,8 +975,8 @@
 
 <body>
 
-    <!-- Dynamic 3D Particle Constellation Canvas -->
-    <canvas id="bg-canvas" class="bg-canvas"></canvas>
+    <!-- Dynamic 3D Cybernetic Geometric Core & Perspective Wave Canvas -->
+    <canvas id="cyber-canvas" class="cyber-canvas"></canvas>
 
     <div class="scroll-progress" id="scroll-progress"></div>
 
@@ -1752,116 +1807,411 @@
 
             const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-            // ==========================================
-            // 1. Dynamic 3D Particle Constellation Canvas
-            // ==========================================
-            const canvas = document.getElementById('bg-canvas');
-            if (canvas && !reduceMotion) {
-                const ctx = canvas.getContext('2d');
-                let particles = [];
-                let mouse = { x: null, y: null, radius: 150 };
+            // =========================================================================
+            // 1. Dynamic 3D Sacred Geometric Flower Formations Engine (Scroll-Driven)
+            // =========================================================================
+            const cyberCanvas = document.getElementById('cyber-canvas');
+            if (cyberCanvas && !reduceMotion) {
+                const ctx = cyberCanvas.getContext('2d');
+                let width = 0, height = 0, dpr = window.devicePixelRatio || 1;
+                let targetProgress = 0, currentProgress = 0;
+                let mouseX = window.innerWidth * 0.5, mouseY = window.innerHeight * 0.5;
+                let targetMouseX = mouseX, targetMouseY = mouseY;
+                let time = 0;
 
                 function resizeCanvas() {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
+                    dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    cyberCanvas.width = width * dpr;
+                    cyberCanvas.height = height * dpr;
+                    cyberCanvas.style.width = width + 'px';
+                    cyberCanvas.style.height = height + 'px';
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
                 }
                 resizeCanvas();
                 window.addEventListener('resize', resizeCanvas);
 
                 window.addEventListener('mousemove', (e) => {
-                    mouse.x = e.x;
-                    mouse.y = e.y;
-                });
-                window.addEventListener('mouseleave', () => {
-                    mouse.x = null;
-                    mouse.y = null;
+                    targetMouseX = e.clientX;
+                    targetMouseY = e.clientY;
                 });
 
-                class Particle {
-                    constructor() {
-                        this.x = Math.random() * canvas.width;
-                        this.y = Math.random() * canvas.height;
-                        this.size = Math.random() * 2 + 0.8;
-                        this.baseX = this.x;
-                        this.baseY = this.y;
-                        this.density = (Math.random() * 20) + 1;
-                        this.vx = (Math.random() - 0.5) * 0.4;
-                        this.vy = (Math.random() - 0.5) * 0.4;
+                function updateScroll() {
+                    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+                    targetProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+                }
+                window.addEventListener('scroll', updateScroll, { passive: true });
+                updateScroll();
+
+                // 3D Coordinate Rotation & Perspective Projection
+                function rotateX(p, angle) {
+                    const cos = Math.cos(angle), sin = Math.sin(angle);
+                    return { x: p.x, y: p.y * cos - p.z * sin, z: p.y * sin + p.z * cos };
+                }
+                function rotateY(p, angle) {
+                    const cos = Math.cos(angle), sin = Math.sin(angle);
+                    return { x: p.x * cos + p.z * sin, y: p.y, z: -p.x * sin + p.z * cos };
+                }
+                function rotateZ(p, angle) {
+                    const cos = Math.cos(angle), sin = Math.sin(angle);
+                    return { x: p.x * cos - p.y * sin, y: p.x * sin + p.y * cos, z: p.z };
+                }
+                function project(p, cx, cy, fov) {
+                    const f = fov / (fov + p.z);
+                    return { x: cx + p.x * f, y: cy + p.y * f, scale: f, z: p.z };
+                }
+
+                // Definition of Floral Formation Centers (Spanning across the site)
+                const flowerFormations = [
+                    {
+                        // 1. Primary Celestial Master Blossom (Hero/Top-Right)
+                        xRel: 0.72, yRel: 0.38, z: 0,
+                        startScroll: 0.0, endScroll: 0.38,
+                        maxRadius: 160,
+                        layers: [
+                            { petals: 6, radiusRel: 0.35, widthRel: 0.36, stroke: '#fbbf24', fill: 'rgba(251, 191, 36, 0.03)', speed: 0.0006 },
+                            { petals: 12, radiusRel: 0.65, widthRel: 0.30, stroke: '#10b981', fill: 'rgba(16, 185, 129, 0.03)', speed: -0.0008 },
+                            { petals: 18, radiusRel: 1.00, widthRel: 0.24, stroke: '#38bdf8', fill: 'rgba(56, 189, 248, 0.02)', speed: 0.0005 },
+                            { petals: 24, radiusRel: 1.30, widthRel: 0.18, stroke: '#10b981', fill: 'transparent', speed: -0.0003 }
+                        ]
+                    },
+                    {
+                        // 2. Sacred About Flower Formation (Left-Center)
+                        xRel: 0.25, yRel: 0.52, z: 40,
+                        startScroll: 0.15, endScroll: 0.55,
+                        maxRadius: 135,
+                        layers: [
+                            { petals: 8, radiusRel: 0.40, widthRel: 0.35, stroke: '#10b981', fill: 'rgba(16, 185, 129, 0.03)', speed: -0.0007 },
+                            { petals: 14, radiusRel: 0.75, widthRel: 0.28, stroke: '#06b6d4', fill: 'rgba(6, 182, 212, 0.03)', speed: 0.0006 },
+                            { petals: 20, radiusRel: 1.10, widthRel: 0.22, stroke: '#fbbf24', fill: 'transparent', speed: -0.0004 }
+                        ]
+                    },
+                    {
+                        // 3. Projects & Capabilities Blossom (Right-Midground)
+                        xRel: 0.80, yRel: 0.65, z: -30,
+                        startScroll: 0.40, endScroll: 0.80,
+                        maxRadius: 145,
+                        layers: [
+                            { petals: 6, radiusRel: 0.35, widthRel: 0.38, stroke: '#fbbf24', fill: 'rgba(251, 191, 36, 0.03)', speed: 0.0008 },
+                            { petals: 12, radiusRel: 0.70, widthRel: 0.30, stroke: '#10b981', fill: 'rgba(16, 185, 129, 0.03)', speed: -0.0006 },
+                            { petals: 16, radiusRel: 1.05, widthRel: 0.25, stroke: '#38bdf8', fill: 'transparent', speed: 0.0005 }
+                        ]
+                    },
+                    {
+                        // 4. Grand Finale Bloom (Bottom/Contact)
+                        xRel: 0.50, yRel: 0.70, z: 20,
+                        startScroll: 0.65, endScroll: 1.00,
+                        maxRadius: 180,
+                        layers: [
+                            { petals: 8, radiusRel: 0.30, widthRel: 0.40, stroke: '#10b981', fill: 'rgba(16, 185, 129, 0.04)', speed: 0.0009 },
+                            { petals: 16, radiusRel: 0.60, widthRel: 0.32, stroke: '#38bdf8', fill: 'rgba(56, 189, 248, 0.03)', speed: -0.0007 },
+                            { petals: 24, radiusRel: 0.95, widthRel: 0.24, stroke: '#fbbf24', fill: 'rgba(251, 191, 36, 0.02)', speed: 0.0005 },
+                            { petals: 32, radiusRel: 1.30, widthRel: 0.16, stroke: '#10b981', fill: 'transparent', speed: -0.0003 }
+                        ]
                     }
+                ];
 
-                    draw() {
-                        ctx.fillStyle = 'rgba(16, 185, 129, 0.45)';
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                        ctx.closePath();
+                // Glowing Spores
+                const sporeCount = 45;
+                const spores = [];
+                for (let i = 0; i < sporeCount; i++) {
+                    spores.push({
+                        x: Math.random() * 1200 - 600,
+                        y: Math.random() * 900 - 450,
+                        z: Math.random() * 600 - 300,
+                        vx: (Math.random() - 0.5) * 0.4,
+                        vy: -Math.random() * 0.5 - 0.2,
+                        vz: (Math.random() - 0.5) * 0.4,
+                        radius: Math.random() * 1.8 + 0.8,
+                        alpha: Math.random() * 0.7 + 0.3,
+                        color: Math.random() > 0.35 ? '#10b981' : '#fbbf24'
+                    });
+                }
+
+                // Draw a Single Procedural Stroke Petal in Formation
+                function drawParametricPetal(cx, cy, length, maxW, angle, formationPct, strokeColor, fillColor, tiltX, tiltY) {
+                    if (formationPct <= 0.01) return;
+
+                    const curLen = length * formationPct;
+                    const curW = maxW * Math.min(1, formationPct * 1.1);
+
+                    // Compute Petal Control Points in Local Space
+                    const p0 = { x: 0, y: 0 };
+                    const p1L = { x: -curW * 0.85, y: -curLen * 0.38 };
+                    const p2L = { x: -curW, y: -curLen * 0.78 };
+                    const pTip = { x: 0, y: -curLen };
+                    const p2R = { x: curW, y: -curLen * 0.78 };
+                    const p1R = { x: curW * 0.85, y: -curLen * 0.38 };
+
+                    ctx.save();
+                    ctx.translate(cx, cy);
+                    ctx.rotate(angle);
+
+                    // Draw Formed Petal Stroke
+                    ctx.beginPath();
+                    ctx.moveTo(p0.x, p0.y);
+                    ctx.bezierCurveTo(p1L.x, p1L.y, p2L.x, p2L.y, pTip.x, pTip.y);
+                    ctx.bezierCurveTo(p2R.x, p2R.y, p1R.x, p1R.y, p0.x, p0.y);
+
+                    if (fillColor && fillColor !== 'transparent') {
+                        ctx.fillStyle = fillColor;
                         ctx.fill();
                     }
 
-                    update() {
-                        this.x += this.vx;
-                        this.y += this.vy;
+                    // Stroke Gradient
+                    const grad = ctx.createLinearGradient(0, 0, 0, -curLen);
+                    grad.addColorStop(0, 'rgba(16, 185, 129, 0.15)');
+                    grad.addColorStop(0.5, strokeColor);
+                    grad.addColorStop(1, '#ffffff');
 
-                        if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
-                        if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 1.35;
+                    ctx.shadowColor = strokeColor;
+                    ctx.shadowBlur = 8;
+                    ctx.stroke();
 
-                        if (mouse.x !== null) {
-                            let dx = mouse.x - this.x;
-                            let dy = mouse.y - this.y;
-                            let distance = Math.sqrt(dx * dx + dy * dy);
-                            if (distance < mouse.radius) {
-                                const forceDirectionX = dx / distance;
-                                const forceDirectionY = dy / distance;
-                                const maxDistance = mouse.radius;
-                                const force = (maxDistance - distance) / maxDistance;
-                                const directionX = forceDirectionX * force * this.density * 0.6;
-                                const directionY = forceDirectionY * force * this.density * 0.6;
-                                this.x -= directionX;
-                                this.y -= directionY;
+                    // Central Floral Spine Rib
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.quadraticCurveTo(0, -curLen * 0.5, 0, -curLen * 0.88);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+
+                    ctx.restore();
+                }
+
+                // Render Full 3D Geometric Flower Creation Formation
+                function renderFlowerFormation(flower, globalProgress, animTime, mouseTiltX, mouseTiltY) {
+                    // Compute Formation Progress (0 to 1) based on scroll
+                    const formationRaw = (globalProgress - flower.startScroll) / Math.max(0.01, (flower.endScroll - flower.startScroll));
+                    const formation = Math.min(1, Math.max(0, formationRaw));
+
+                    if (formation <= 0.005) return;
+
+                    const isMobile = width < 768;
+                    const cx = width * (isMobile ? (flower.xRel > 0.5 ? 0.80 : 0.20) : flower.xRel);
+                    const cy = height * (isMobile ? (flower.yRel * 0.9 + 0.05) : flower.yRel);
+                    const baseRadius = flower.maxRadius * (isMobile ? 0.45 : 1.0);
+
+                    // 3D Perspective Angles
+                    const fov = 750;
+                    const rotXAngle = mouseTiltY * 0.35 + Math.sin(animTime * 0.0008) * 0.1;
+                    const rotYAngle = mouseTiltX * 0.45 + Math.cos(animTime * 0.0006) * 0.12;
+
+                    // 1. Central Sacred Seed Core (Formed first)
+                    const coreProgress = Math.min(1, formation * 2.5);
+                    if (coreProgress > 0) {
+                        ctx.save();
+                        ctx.translate(cx, cy);
+
+                        // Sacred Center Sphere Halo
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 8 * coreProgress, 0, Math.PI * 2);
+                        ctx.fillStyle = '#fbbf24';
+                        ctx.shadowColor = '#fbbf24';
+                        ctx.shadowBlur = 18;
+                        ctx.fill();
+
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 3.5 * coreProgress, 0, Math.PI * 2);
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fill();
+
+                        // 6 Seed Points Orbiting
+                        const seedCount = 6;
+                        for (let s = 0; s < seedCount; s++) {
+                            const theta = (s * Math.PI * 2 / seedCount) + animTime * 0.001;
+                            const r = 16 * coreProgress;
+                            ctx.beginPath();
+                            ctx.arc(Math.cos(theta) * r, Math.sin(theta) * r, 2.2 * coreProgress, 0, Math.PI * 2);
+                            ctx.fillStyle = '#10b981';
+                            ctx.shadowColor = '#10b981';
+                            ctx.shadowBlur = 10;
+                            ctx.fill();
+                        }
+                        ctx.restore();
+                    }
+
+                    // 2. Layer-by-Layer Petal Creations
+                    flower.layers.forEach((layer, layerIdx) => {
+                        // Stagger each layer's formation threshold
+                        const layerThreshold = layerIdx * 0.18;
+                        const layerFormation = Math.min(1, Math.max(0, (formation - layerThreshold) / (1 - layerThreshold)));
+
+                        if (layerFormation > 0) {
+                            const layerRadius = baseRadius * layer.radiusRel;
+                            const layerPetalWidth = layerRadius * layer.widthRel;
+                            const petals = layer.petals;
+                            const baseAngle = animTime * layer.speed + (layerIdx * Math.PI / petals) + globalProgress * (layerIdx % 2 === 0 ? 1.5 : -1.2);
+
+                            for (let p = 0; p < petals; p++) {
+                                // Individual petal sequential unroll
+                                const petalDelay = p / (petals * 1.5);
+                                const petalProgress = Math.min(1, Math.max(0, (layerFormation - petalDelay) * 1.6));
+
+                                if (petalProgress > 0) {
+                                    const theta = baseAngle + (p * Math.PI * 2 / petals);
+
+                                    // Compute 3D tilted origin for petal
+                                    let pt3D = {
+                                        x: Math.cos(theta) * (layerRadius * 0.1),
+                                        y: Math.sin(theta) * (layerRadius * 0.1),
+                                        z: flower.z + (layerIdx * 15)
+                                    };
+                                    pt3D = rotateX(pt3D, rotXAngle);
+                                    pt3D = rotateY(pt3D, rotYAngle);
+                                    const proj = project(pt3D, cx, cy, fov);
+
+                                    drawParametricPetal(
+                                        proj.x, proj.y,
+                                        layerRadius * proj.scale,
+                                        layerPetalWidth * proj.scale,
+                                        theta + rotYAngle * 0.3,
+                                        petalProgress,
+                                        layer.stroke,
+                                        layer.fill,
+                                        mouseTiltX, mouseTiltY
+                                    );
+                                }
                             }
+                        }
+                    });
+
+                    // 3. Concentric Sacred Geometry Orbitals (Formed on full bloom)
+                    if (formation > 0.4) {
+                        const geomProgress = Math.min(1, (formation - 0.4) / 0.6);
+                        const orbRadius = baseRadius * 1.15 * geomProgress;
+                        const segments = 48;
+
+                        ctx.beginPath();
+                        for (let s = 0; s <= segments; s++) {
+                            const theta = (s / segments) * Math.PI * 2;
+                            let p = {
+                                x: Math.cos(theta) * orbRadius,
+                                y: Math.sin(theta) * orbRadius,
+                                z: flower.z
+                            };
+                            p = rotateX(p, rotXAngle);
+                            p = rotateY(p, rotYAngle);
+                            const proj = project(p, cx, cy, fov);
+                            if (s === 0) ctx.moveTo(proj.x, proj.y);
+                            else ctx.lineTo(proj.x, proj.y);
+                        }
+                        ctx.strokeStyle = `rgba(16, 185, 129, ${0.35 * geomProgress})`;
+                        ctx.lineWidth = 1.0;
+                        ctx.shadowColor = '#10b981';
+                        ctx.shadowBlur = 6;
+                        ctx.stroke();
+
+                        // Sacred 6-Node Constellation Points on Orbital Ring
+                        for (let k = 0; k < 6; k++) {
+                            const kTheta = (k * Math.PI * 2 / 6) + animTime * 0.0004;
+                            let kp = {
+                                x: Math.cos(kTheta) * orbRadius,
+                                y: Math.sin(kTheta) * orbRadius,
+                                z: flower.z
+                            };
+                            kp = rotateX(kp, rotXAngle);
+                            kp = rotateY(kp, rotYAngle);
+                            const kProj = project(kp, cx, cy, fov);
+
+                            ctx.beginPath();
+                            ctx.arc(kProj.x, kProj.y, 2.5 * kProj.scale, 0, Math.PI * 2);
+                            ctx.fillStyle = '#6ee7b7';
+                            ctx.shadowColor = '#10b981';
+                            ctx.shadowBlur = 10;
+                            ctx.fill();
                         }
                     }
                 }
 
-                function initParticles() {
-                    particles = [];
-                    const numberOfParticles = Math.min((canvas.width * canvas.height) / 14000, 75);
-                    for (let i = 0; i < numberOfParticles; i++) {
-                        particles.push(new Particle());
+                // Draw Connective Luminous Stems between Floral Formations
+                function renderConnectiveFilaments(globalProgress, animTime) {
+                    if (globalProgress <= 0.05) return;
+
+                    ctx.beginPath();
+                    const isMobile = width < 768;
+                    const pts = flowerFormations.map(f => ({
+                        x: width * (isMobile ? 0.5 : f.xRel),
+                        y: height * (isMobile ? (f.yRel * 0.85 + 0.1) : f.yRel)
+                    }));
+
+                    ctx.moveTo(pts[0].x, pts[0].y);
+                    for (let i = 1; i < pts.length; i++) {
+                        const prev = pts[i - 1];
+                        const curr = pts[i];
+                        const midX = (prev.x + curr.x) * 0.5 + Math.sin(animTime * 0.001 + i) * 20;
+                        const midY = (prev.y + curr.y) * 0.5;
+                        ctx.quadraticCurveTo(midX, midY, curr.x, curr.y);
                     }
+
+                    const grad = ctx.createLinearGradient(0, 0, width, height);
+                    grad.addColorStop(0, 'rgba(16, 185, 129, 0.15)');
+                    grad.addColorStop(0.5, 'rgba(56, 189, 248, 0.25)');
+                    grad.addColorStop(1, 'rgba(251, 191, 36, 0.2)');
+
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 1.2;
+                    ctx.shadowColor = '#10b981';
+                    ctx.shadowBlur = 6;
+                    ctx.stroke();
                 }
-                initParticles();
-                window.addEventListener('resize', initParticles);
 
-                function connect() {
-                    for (let a = 0; a < particles.length; a++) {
-                        for (let b = a; b < particles.length; b++) {
-                            let dx = particles[a].x - particles[b].x;
-                            let dy = particles[a].y - particles[b].y;
-                            let distance = Math.sqrt(dx * dx + dy * dy);
+                // Main 3D Render Loop
+                function render(timestamp) {
+                    time = timestamp || 0;
+                    currentProgress += (targetProgress - currentProgress) * 0.06;
+                    mouseX += (targetMouseX - mouseX) * 0.05;
+                    mouseY += (targetMouseY - mouseY) * 0.05;
 
-                            if (distance < 110) {
-                                const opacity = (1 - (distance / 110)) * 0.15;
-                                ctx.strokeStyle = `rgba(16, 185, 129, ${opacity})`;
-                                ctx.lineWidth = 1;
-                                ctx.beginPath();
-                                ctx.moveTo(particles[a].x, particles[a].y);
-                                ctx.lineTo(particles[b].x, particles[b].y);
-                                ctx.stroke();
-                            }
+                    ctx.clearRect(0, 0, width, height);
+
+                    const mouseTiltX = (mouseX / width - 0.5) * 2;
+                    const mouseTiltY = (mouseY / height - 0.5) * 2;
+
+                    // 1. Connective Luminous Stems between Flower Creations
+                    renderConnectiveFilaments(currentProgress, time);
+
+                    // 2. Render all 3D Sacred Flower Creation Formations
+                    flowerFormations.forEach(flower => {
+                        renderFlowerFormation(flower, currentProgress, time, mouseTiltX, mouseTiltY);
+                    });
+
+                    // 3. Render Floating Glowing Pollen Spores in 3D
+                    spores.forEach(sp => {
+                        sp.x += sp.vx;
+                        sp.y += sp.vy;
+                        sp.z += sp.vz;
+
+                        if (sp.y < -500) {
+                            sp.y = 500;
+                            sp.x = (Math.random() - 0.5) * 1200;
                         }
-                    }
-                }
+                        if (sp.x < -600) sp.x = 600;
+                        if (sp.x > 600) sp.x = -600;
+                        if (sp.z < -300) sp.z = 300;
+                        if (sp.z > 300) sp.z = -300;
 
-                function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    for (let i = 0; i < particles.length; i++) {
-                        particles[i].draw();
-                        particles[i].update();
-                    }
-                    connect();
-                    requestAnimationFrame(animate);
+                        let p = { x: sp.x, y: sp.y, z: sp.z };
+                        p = rotateY(p, mouseTiltX * 0.08);
+                        p = rotateX(p, -mouseTiltY * 0.08);
+
+                        const proj = project(p, width * 0.5, height * 0.5, 600);
+                        const alpha = Math.min(0.85, Math.max(0.15, sp.alpha * proj.scale));
+
+                        ctx.beginPath();
+                        ctx.arc(proj.x, proj.y, sp.radius * proj.scale, 0, Math.PI * 2);
+                        ctx.fillStyle = sp.color === '#10b981' ? `rgba(16, 185, 129, ${alpha})` : `rgba(251, 191, 36, ${alpha})`;
+                        ctx.shadowColor = sp.color;
+                        ctx.shadowBlur = 8;
+                        ctx.fill();
+                    });
+
+                    requestAnimationFrame(render);
                 }
-                animate();
+                requestAnimationFrame(render);
             }
 
             // ==========================================
