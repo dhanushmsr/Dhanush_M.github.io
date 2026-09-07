@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhanush M – Resume | Full Stack & Mobile Developer</title>
+    <meta name="description" content="Resume of Dhanush M — Full Stack Developer specializing in MERN Stack, React Native, Python (Flask/Django), DSA, OOP, and healthcare systems. B.E. Computer Science Honours in Cyber Security.">
+    <meta name="keywords" content="Dhanush M resume, Dhanush M CV, Full Stack Developer, MERN Stack, React Native, Python Flask, DSA, OOP, Cyber Security, Harvee Technologies, ZureSmile, RxDx">
+    <meta name="author" content="Dhanush M">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://dhanush-m.vercel.app/asset/Dhanush_Resume.html">
+    <link rel="icon" href="logo.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Dhanush M – Technical Resume & CV">
+    <meta property="og:description" content="Full Stack Developer · MERN Stack · React Native · Python Flask & DSA · B.E. CSE Honours in Cyber Security.">
+    <meta property="og:url" content="https://dhanush-m.vercel.app/asset/Dhanush_Resume.html">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page {
+            size: A4;
+            margin: 14mm 16mm;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f8fafc;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .resume {
+            max-width: 840px;
+            margin: 20px auto 40px;
+            padding: 36px 44px;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border-radius: 4px;
+        }
+
+        /* ─── HEADER ─── */
+        .header {
+            text-align: center;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #0f172a;
+            margin-bottom: 18px;
+        }
+        .header h1 {
+            font-size: 22pt;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+        .header .subtitle {
+            font-size: 10.8pt;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+        .header .contact-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px 18px;
+            font-size: 9.3pt;
+            color: #475569;
+        }
+        .header .contact-row a {
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .header .contact-row a:hover {
+            text-decoration: underline;
+        }
+        .header .contact-row span::before {
+            content: "•";
+            color: #94a3b8;
+            margin-right: 6px;
+        }
+        .header .contact-row span:first-child::before {
+            content: "";
+            margin-right: 0;
+        }
+
+        /* ─── SECTIONS ─── */
+        .section {
+            margin-bottom: 18px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+        .section-title {
+            font-size: 11pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: #0f172a;
+            border-bottom: 1.5px solid #0f172a;
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* ─── SKILLS ─── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            row-gap: 5px;
+            column-gap: 12px;
+            font-size: 9.5pt;
+            line-height: 1.48;
+        }
+        .skills-grid .label {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .skills-grid .value {
+            color: #334155;
+        }
+
+        /* ─── EXPERIENCE ─── */
+        .exp-block {
+            margin-bottom: 14px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+        .exp-block:last-child {
+            margin-bottom: 0;
+        }
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+        .exp-header .role {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .exp-header .date {
+            font-size: 9.2pt;
+            font-weight: 500;
+            color: #64748b;
+            white-space: nowrap;
+        }
+        .exp-company {
+            font-size: 9.6pt;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 5px;
+        }
+        .exp-bullets {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .exp-bullets li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 4px;
+            font-size: 9.4pt;
+            line-height: 1.48;
+            color: #334155;
+        }
+        .exp-bullets li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #0284c7;
+            font-size: 8pt;
+            top: 1px;
+        }
+        .exp-bullets li strong {
+            color: #0f172a;
+        }
+
+        /* ─── FEATURED PROJECTS ─── */
+        .project-block {
+            margin-bottom: 14px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+        .project-block:last-child {
+            margin-bottom: 0;
+        }
+        .project-title {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+        .project-tech {
+            font-size: 9pt;
+            font-style: italic;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        /* ─── EDUCATION ─── */
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+        .edu-header .degree {
+            font-size: 10.3pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .edu-header .year {
+            font-size: 9.2pt;
+            font-weight: 500;
+            color: #64748b;
+            white-space: nowrap;
+        }
+        .edu-school {
+            font-size: 9.5pt;
+            color: #475569;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        /* ─── CERTIFICATIONS ─── */
+        .cert-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .cert-list li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 4px;
+            font-size: 9.4pt;
+            line-height: 1.48;
+            color: #334155;
+        }
+        .cert-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #0284c7;
+            font-size: 8pt;
+            top: 1px;
+        }
+
+        /* Top Navigation Toolbar for Web View */
+        .resume-toolbar {
+            max-width: 840px;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .toolbar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        .toolbar-btn--primary {
+            background: #0f172a;
+            color: #ffffff;
+        }
+        .toolbar-btn--primary:hover {
+            background: #1e293b;
+        }
+        .toolbar-btn--outline {
+            background: transparent;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        .toolbar-btn--outline:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        /* Print optimization */
+        @media print {
+            @page {
+                size: A4;
+                margin: 14mm 16mm;
+            }
+            .no-print { display: none !important; }
+            body { font-size: 9.8pt; line-height: 1.48; background: #fff; }
+            .resume { padding: 0; max-width: 100%; margin: 0; box-shadow: none; border-radius: 0; }
+            .header { padding-bottom: 10px; margin-bottom: 14px; }
+            .header h1 { font-size: 20pt; margin-bottom: 3px; }
+            .header .subtitle { font-size: 10.3pt; margin-bottom: 5px; }
+            .header .contact-row { gap: 4px 14px; font-size: 9pt; }
+            .section { margin-bottom: 14px; break-inside: avoid; page-break-inside: avoid; }
+            .section-title { font-size: 10.5pt; padding-bottom: 3px; margin-bottom: 8px; }
+            .exp-bullets li { margin-bottom: 3.5px; line-height: 1.46; font-size: 9.3pt; }
+            .exp-block { margin-bottom: 12px; break-inside: avoid; page-break-inside: avoid; }
+            .project-block { margin-bottom: 12px; break-inside: avoid; page-break-inside: avoid; }
+            .skills-grid { gap: 4px 12px; font-size: 9.3pt; }
+            .cert-list li { margin-bottom: 3.5px; line-height: 1.46; font-size: 9.3pt; }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-toolbar no-print">
+        <a href="../index.html" class="toolbar-btn toolbar-btn--outline">← Back to Portfolio</a>
+        <div style="display:flex; gap:8px;">
+            <a href="Dhanush_Resume.pdf" download="Dhanush_M_Resume.pdf" class="toolbar-btn toolbar-btn--outline">Download PDF</a>
+            <button onclick="window.print()" class="toolbar-btn toolbar-btn--primary">Print / Save as PDF</button>
+        </div>
+    </div>
+
+    <div class="resume">
+
+        <!-- ═══ HEADER ═══ -->
+        <header class="header">
+            <h1>DHANUSH M</h1>
+            <div class="subtitle">Full Stack Developer · MERN Stack · React Native · CMS Engineer</div>
+            <div class="contact-row">
+                <span><a href="tel:+919566960500">+91 9566960500</a></span>
+                <span><a href="mailto:mdhanushdsm@gmail.com">mdhanushdsm@gmail.com</a></span>
+                <span><a href="https://www.linkedin.com/in/dhanushm13" target="_blank" rel="noopener noreferrer">linkedin.com/in/dhanushm13</a></span>
+                <span><a href="https://github.com/dhanushmsr" target="_blank" rel="noopener noreferrer">github.com/dhanushmsr</a></span>
+                <span><a href="https://dhanush-m.vercel.app" target="_blank" rel="noopener noreferrer">dhanush-m.vercel.app</a></span>
+            </div>
+        </header>
+
+        <!-- ═══ PROFESSIONAL SUMMARY ═══ -->
+        <section class="section">
+            <h2 class="section-title">Professional Summary</h2>
+            <p style="font-size:9pt; color:#222;">
+                Full Stack Developer specializing in production-grade <strong>healthcare and clinical workflow applications</strong> using the <strong>MERN stack</strong> and <strong>React Native</strong>. Experienced in engineering scalable REST APIs with JWT/RBAC authentication, optimizing MongoDB performance by 30%+, and delivering cross-platform mobile experiences for medical professionals. Strong foundation in <strong>Python, DSA, and OOP</strong> with hands-on CMS and agile development expertise.
+            </p>
+        </section>
+
+        <!-- ═══ TECHNICAL SKILLS ═══ -->
+        <section class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="label">Languages</div>
+                <div class="value">Python, JavaScript (ES6+), TypeScript, SQL, HTML5, CSS3</div>
+
+                <div class="label">Frontend</div>
+                <div class="value">React.js, Redux Toolkit, Context API, Tailwind CSS, Material UI, Responsive Design</div>
+
+                <div class="label">Mobile</div>
+                <div class="value">React Native, Expo, Cross-Platform Development (iOS & Android), Push Notifications</div>
+
+                <div class="label">Backend & Frameworks</div>
+                <div class="value">Node.js, Express.js, Flask, RESTful APIs, JWT Authentication, RBAC, Middleware Architecture</div>
+
+                <div class="label">Databases</div>
+                <div class="value">MongoDB, Mongoose ODM, Aggregation Pipelines, Query Optimization, PostgreSQL, MySQL</div>
+
+                <div class="label">Core Competencies</div>
+                <div class="value">Data Structures & Algorithms (DSA), Object-Oriented Programming (OOP), Database Design</div>
+
+                <div class="label">CMS & Content</div>
+                <div class="value">WordPress (Custom Themes, Plugins, Hooks, REST API), Headless CMS, PHP</div>
+
+                <div class="label">DevOps & Tools</div>
+                <div class="value">Git, GitHub, Postman, Vercel, Render, Firebase, CI/CD, Agile/Scrum, Jira</div>
+            </div>
+        </section>
+
+        <!-- ═══ WORK EXPERIENCE ═══ -->
+        <section class="section">
+            <h2 class="section-title">Work Experience</h2>
+
+            <div class="exp-block">
+                <div class="exp-header">
+                    <div class="role">Software Developer — Full Stack & Mobile</div>
+                    <div class="date">August 2026 – Present</div>
+                </div>
+                <div class="exp-company">Harvee Technologies · Bengaluru, India</div>
+                <ul class="exp-bullets">
+                    <li>Architect and deploy <strong>full-stack web and mobile applications</strong> using the MERN stack and React Native across healthcare and e-learning domains, serving <strong>500+ active users</strong>.</li>
+                    <li>Engineer <strong>secure Node.js/Express REST APIs</strong> with JWT authentication, refresh token rotation, and role-based access control (RBAC) for multi-tenant clinical platforms.</li>
+                    <li>Optimize <strong>MongoDB aggregation pipelines</strong> and compound indexing strategies, reducing query response times by <strong>over 30%</strong> and improving dashboard load performance.</li>
+                    <li>Build custom <strong>WordPress CMS infrastructures</strong> with ACF and plugin architectures, reducing editorial turnaround by <strong>40%</strong>; collaborate in Agile/Scrum sprints with Git-based code reviews.</li>
+                </ul>
+            </div>
+
+            <div class="exp-block">
+                <div class="exp-header">
+                    <div class="role">Python & Backend Developer Intern</div>
+                    <div class="date">2025 – 2026</div>
+                </div>
+                <div class="exp-company">PySpiders · Bengaluru, India</div>
+                <ul class="exp-bullets">
+                    <li>Built and tested <strong>RESTful web APIs</strong> using Python and the Flask framework, handling request routing, data validation, and SQL database integration.</li>
+                    <li>Applied core <strong>Data Structures & Algorithms (DSA)</strong> and Object-Oriented Programming (OOP) concepts to optimize execution time, memory usage, and logic workflows.</li>
+                    <li>Developed modular, maintainable code following <strong>PEP 8 standards</strong> and utilized Git for version control and branch management.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ═══ FEATURED PROJECTS ═══ -->
+        <section class="section">
+            <h2 class="section-title">Featured Projects</h2>
+
+            <div class="project-block">
+                <div class="project-title">RxDx — E-Learning & Continuing Medical Education (CME) Platform</div>
+                <div class="project-tech">React.js, React Native, Node.js, Express.js, MongoDB, Redux Toolkit, JWT, Video Streaming</div>
+                <ul class="exp-bullets">
+                    <li>Engineered a <strong>medical e-learning platform</strong> for physicians with accredited courses, HD video lectures, and interactive case-study assessments — onboarding <strong>200+ doctors</strong>.</li>
+                    <li>Developed cross-platform <strong>React Native mobile modules</strong> with offline caching via Redux Toolkit, enabling uninterrupted study in low-connectivity environments.</li>
+                    <li>Built a secure backend managing course catalogs, doctor credentials, evaluation quizzes, and <strong>automated certificate generation</strong> with dynamic PDF rendering.</li>
+                </ul>
+            </div>
+
+            <div class="project-block">
+                <div class="project-title">ZureSmile — Clinic & Doctor Practice Management System</div>
+                <div class="project-tech">React.js, Node.js, Express.js, MongoDB, WordPress CMS, Email/SMS Webhooks, Calendar API</div>
+                <ul class="exp-bullets">
+                    <li>Architected an integrated <strong>clinic management portal</strong> with real-time doctor availability calendars, double-booking prevention, and patient intake workflows — managing <strong>1,000+ monthly appointments</strong>.</li>
+                    <li>Integrated a <strong>WordPress CMS layer</strong> for clinic profiles, service catalogs, and patient FAQs — reducing content update time by <strong>60%</strong> without developer intervention.</li>
+                    <li>Engineered an <strong>automated notification pipeline</strong> for appointment confirmations and reminders via email/SMS webhooks with <strong>99.5% delivery rate</strong>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ═══ EDUCATION ═══ -->
+        <section class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="edu-header">
+                <div class="degree">Bachelor of Engineering (B.E.) — Computer Science & Engineering, Honours in Cyber Security</div>
+                <div class="year">2022 – 2026</div>
+            </div>
+            <div class="edu-school">Hindusthan Institute of Technology, Coimbatore, Tamil Nadu · CGPA: 8.12</div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Certifications & Training</h2>
+            <ul class="cert-list">
+                <li><strong>HCL GUVI</strong> — Certified in Data Structures & Algorithms (DSA) and Flask Web Framework Development, covering algorithmic problem-solving, Python backend engineering, and RESTful API design</li>
+            </ul>
+        </section>
+
+        <!-- ═══ ADDITIONAL ═══ -->
+        <section class="section" style="margin-bottom:0;">
+            <h2 class="section-title">Additional</h2>
+            <ul class="exp-bullets">
+                <li><strong>Competitive Chess Player & Coach</strong> — Train young minds in tactical visualization and strategic planning; skills reinforcing systematic software architecture and debugging.</li>
+                <li><strong>Open Source Contributor</strong> — Maintain and publish developer tools and utility libraries on GitHub.</li>
+            </ul>
+        </section>
+
+    </div>
+</body>
+</html>
