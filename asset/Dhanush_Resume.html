@@ -329,6 +329,7 @@
             }
             .resume-toolbar-actions {
                 display: flex;
+                flex-direction: column;
                 gap: 8px;
                 width: 100%;
             }
@@ -345,13 +346,30 @@
                 font-weight: 700;
             }
             .resume {
-                max-width: 100%;
-                margin: 0 auto 24px;
-                padding: 24px 16px;
-                border-radius: 8px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                width: calc(100% - 16px);
+                max-width: 540px;
+                margin: 0 auto 28px;
+                padding: 26px 18px 30px;
+                background: #ffffff;
+                border-radius: 4px;
+                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.1);
                 border: 1px solid #e2e8f0;
                 box-sizing: border-box;
+                position: relative;
+            }
+            .resume::before {
+                content: "A4 SHEET VIEW";
+                position: absolute;
+                top: -9px;
+                right: 14px;
+                background: #0284c7;
+                color: #ffffff;
+                font-size: 8px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                padding: 2px 7px;
+                border-radius: 3px;
+                box-shadow: 0 2px 5px rgba(2, 132, 199, 0.4);
             }
             .header {
                 padding-bottom: 12px;
