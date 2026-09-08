@@ -1366,6 +1366,8 @@
                 width: min(88vw, 340px);
                 padding: 2.4rem 2rem;
                 border-radius: 1.6rem;
+                background: #11151c !important;
+                box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9);
             }
 
             .skills-card .skills__subtitle {
@@ -4237,12 +4239,23 @@
                         let tz = 0;
 
                         if (isMobile) {
-                            // Mobile: restrained curve within viewport boundaries (no horizontal bleeding)
-                            tx = Math.max(-65, Math.min(65, delta * 52));
-                            ty = Math.max(-45, Math.min(45, (delta < 0 ? -1 : 1) * Math.pow(absDelta, 1.15) * 28 + delta * 10));
-                            rot = Math.max(-3.5, Math.min(3.5, delta * 2.5));
-                            sc = Math.max(0.92, 1 - absDelta * 0.06);
-                            op = Math.max(0.25, Math.min(1, 1 - absDelta * 0.65));
+                            // Mobile: Cards slide in smoothly from the right side edge and exit to the left side edge
+                            const winW = window.innerWidth || 390;
+                            const swipeDist = Math.min(winW * 0.86, 330);
+
+                            tx = delta * swipeDist;
+                            ty = (delta < 0 ? -1 : 1) * Math.min(35, Math.pow(absDelta, 1.2) * 20);
+                            rot = Math.max(-4, Math.min(4, delta * 3.2));
+                            sc = Math.max(0.90, 1 - absDelta * 0.08);
+
+                            // Opacity: 1 at center, ~0.45 when peeking at side edge, 0 when fully off-screen
+                            if (absDelta <= 1.0) {
+                                op = 1 - absDelta * 0.55;
+                            } else if (absDelta <= 1.5) {
+                                op = Math.max(0, 0.45 - (absDelta - 1.0) * 0.9);
+                            } else {
+                                op = 0;
+                            }
                             tz = 0;
                         } else if (isTablet) {
                             // Tablet: medium circular curve
