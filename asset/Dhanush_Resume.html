@@ -27,6 +27,12 @@
             margin: 14mm 16mm;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
         body {
             font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
             font-size: 10pt;
@@ -298,6 +304,113 @@
             color: #0f172a;
         }
 
+        /* Mobile Responsive A4 Presentation */
+        @media screen and (max-width: 768px) {
+            body {
+                background: #090b0e;
+                padding: 10px 8px 30px;
+            }
+            .resume-toolbar {
+                margin: 0 auto 12px;
+                padding: 10px 14px;
+                flex-direction: column;
+                gap: 8px;
+                align-items: stretch;
+                background: #13171f;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 8px;
+            }
+            .resume-toolbar .toolbar-btn--outline {
+                color: #e2e8f0;
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.18);
+                text-align: center;
+                justify-content: center;
+            }
+            .resume-toolbar-actions {
+                display: flex;
+                gap: 8px;
+                width: 100%;
+            }
+            .resume-toolbar-actions .toolbar-btn {
+                flex: 1;
+                justify-content: center;
+                text-align: center;
+                padding: 8px 10px;
+                font-size: 11.5px;
+            }
+            .resume-toolbar .toolbar-btn--primary {
+                background: #10b981;
+                color: #061510;
+                font-weight: 700;
+            }
+            .resume {
+                max-width: 100%;
+                margin: 0 auto 24px;
+                padding: 24px 16px;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                border: 1px solid #e2e8f0;
+                box-sizing: border-box;
+            }
+            .header {
+                padding-bottom: 12px;
+                margin-bottom: 14px;
+            }
+            .header h1 {
+                font-size: 17pt;
+                letter-spacing: 0.5px;
+            }
+            .header .subtitle {
+                font-size: 9.5pt;
+                line-height: 1.4;
+            }
+            .header .contact-row {
+                gap: 4px 10px;
+                font-size: 8.5pt;
+                line-height: 1.5;
+            }
+            .section {
+                margin-bottom: 14px;
+            }
+            .section-title {
+                font-size: 10pt;
+                margin-bottom: 8px;
+                padding-bottom: 3px;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+                row-gap: 6px;
+            }
+            .skills-grid .label {
+                font-size: 9.5pt;
+                color: #0f172a;
+                font-weight: 700;
+                margin-top: 4px;
+            }
+            .skills-grid .value {
+                font-size: 9pt;
+                color: #334155;
+                line-height: 1.45;
+                padding-left: 2px;
+            }
+            .exp-header, .edu-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+            .exp-header .date, .edu-header .year {
+                font-size: 8.8pt;
+                color: #0284c7;
+                font-weight: 600;
+            }
+            .exp-bullets li, .cert-list li {
+                font-size: 9pt;
+                line-height: 1.45;
+                margin-bottom: 4px;
+            }
+        }
+
         /* Print optimization */
         @media print {
             @page {
@@ -324,7 +437,7 @@
 <body>
     <div class="resume-toolbar no-print">
         <a href="../index.html" class="toolbar-btn toolbar-btn--outline">← Back to Portfolio</a>
-        <div style="display:flex; gap:8px;">
+        <div class="resume-toolbar-actions">
             <a href="Dhanush_Resume.pdf" download="Dhanush_M_Resume.pdf" class="toolbar-btn toolbar-btn--outline">Download PDF</a>
             <button onclick="window.print()" class="toolbar-btn toolbar-btn--primary">Print / Save as PDF</button>
         </div>
